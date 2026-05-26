@@ -166,12 +166,12 @@
 
     <div class="modal-content"
       id="modal-content-wrapper"
-      style="background: white; padding: 1rem; border-radius: 10px; max-height: 90vh;">
+      style="background: white; padding: 1rem; border-radius: 10px; width: min(95vw, 1200px); max-height: 95vh;">
 
       <!-- Pan container: scroll-based panning (smooth) -->
       <div
         id="pan-container"
-        style="background: white; overflow: auto; max-height: 85vh; border-radius: 10px; padding: 0.5rem;"
+        style="background: white; overflow: auto; max-height: 78vh; border-radius: 10px; padding: 0.5rem;"
       >
         <img
           id="img-modal-src"
@@ -528,11 +528,14 @@ function escapeHtml(value) {
 function formatPatternOccurrences(patterns) {
   const patternsHtml = Object.entries(patterns || {})
     .sort((a, b) => b[1] - a[1])
-    .map(([pattern, count]) => `<li><strong>${escapeHtml(pattern)}</strong>: ${escapeHtml(count)}</li>`)
+    .map(([pattern, count]) => {
+      const occurrenceLabel = Number(count) === 1 ? "occurrence" : "occurrences";
+      return `<li><strong>${escapeHtml(pattern)}</strong>: ${escapeHtml(count)} ${occurrenceLabel}</li>`;
+    })
     .join("");
 
   return patternsHtml
-    ? `<ul>${patternsHtml}</ul>`
+    ? `<p style="margin-bottom: 0.5rem;"><strong>Numbers indicate occurrences across all extraction methods.</strong></p><ul>${patternsHtml}</ul>`
     : "No pattern occurrence data available.";
 }
 
@@ -699,9 +702,9 @@ async function loadPatternCounts() {
      { repo: "https://github.com/LiuLab-Bioelectronics-Harvard/SpikeAgent", extraction: "Forward Snowballing", paper: "Spike sorting AI agent", description: ["SpikeAgent is a multimodal LLM-based AI agent that automates and standardizes the spike sorting pipeline"]},
      { repo: "https://github.com/karin0018/GenAL", extraction: "Forward Snowballing", paper: "GenAL: Generative Agent for Adaptive Learning", description: ["A system that integrated Generative Agent for Adaptive Learning (GenAL), which integrates educational tools with LLMs' semantic understanding to enable effective and generalizable learning path recommendations across diverse data distributions."]},
      { repo: "https://github.com/JimmyLin-afk/SmartAuditFlow", extraction: "Forward Snowballing", paper: "SmartAuditFlow: A Dynamic Plan-Execute Framework for Advanced Smart Contract Security Analysis", description: ["An AI-powered framework for automated smart contract security auditing. It combines Large Language Models (LLMs) with dynamic workflow orchestration to detect vulnerabilities through adaptive planning, iterative refinement, and integration with static analyzers."]},
-     { repo: "Evaluating Goal Drift in Language Model Agents", extraction: "Forward Snowballing", paper: "https://github.com/RaunoArike/goal-drift-evals", description: ["A novel approach to analyzing goal drift in LM agents."]},
-     { repo: "ShortageSim: Simulating Drug Shortages under Information Asymmetry", extraction: "Forward Snowballing", paper: "https://github.com/Lemutisme/ShortageSim", description: ["a comprehensive multi-agent simulation framework that models pharmaceutical supply chain dynamics during drug shortage events."]},
-     { repo: "Tutorial on Large Language Model-Enhanced  Reinforcement Learning for Wireless Networks", extraction: "Forward Snowballing", paper: "https://github.com/ZJLAB-AMMI/LLM4Teach", description: ["LLM4Teach, a policy distillation approach for teaching reinforcement learning agents with Large Language Model"]},
+     { repo: "https://github.com/RaunoArike/goal-drift-evals", extraction: "Forward Snowballing", paper: "Evaluating Goal Drift in Language Model Agents", description: ["A novel approach to analyzing goal drift in LM agents."]},
+     { repo: "https://github.com/Lemutisme/ShortageSim", extraction: "Forward Snowballing", paper: "ShortageSim: Simulating Drug Shortages under Information Asymmetry", description: ["a comprehensive multi-agent simulation framework that models pharmaceutical supply chain dynamics during drug shortage events."]},
+     { repo: "https://github.com/ZJLAB-AMMI/LLM4Teach", extraction: "Forward Snowballing", paper: "Tutorial on Large Language Model-Enhanced  Reinforcement Learning for Wireless Networks", description: ["LLM4Teach, a policy distillation approach for teaching reinforcement learning agents with Large Language Model"]},
      { repo: "https://github.com/wanxingai/LightAgent", extraction: "Forward Snowballing", paper: "LightAgent: Production-level Open-source Agentic AI Framework", description: ["Lightweight AI agent framework with memory, tools & tree-of-thought. Supports multi-agent collaboration, self-learning, and major LLMs (OpenAI/DeepSeek/Qwen). Open-source with MCP/SSE protocol integration."]},
      { repo: "https://github.com/MobileLLM/DroidBot-GPT", extraction: "Forward Snowballing", paper: "Large multimodal agents: a survey", description: ["DroidBot-GPT is an easy-to-use UI agent framework for Android. It can control a smartphone app automatically based on a natural language task description."]},
      { repo: "https://github.com/lupantech/chameleon-llm", extraction: "Forward Snowballing", paper: "Large multimodal agents: a survey", description: ["Chameleon is a plug-and-play compositional reasoning framework that augments LLMs with various types of tools. Chameleon synthesizes programs to compose various tools, including LLM models, off-the-shelf vision models, web search engines, Python functions, and rule-based modules tailored to user interests. Built on top of an LLM as a natural language planner, Chameleon infers the appropriate sequence of tools to compose and execute in order to generate a final response."]},
