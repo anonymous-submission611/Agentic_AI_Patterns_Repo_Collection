@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agentic & AI Agents Systems Patterns</title>
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="static/css/bulma.min.css" />
+  <link rel="stylesheet" href="static/css/index.css" />
+  <link rel="icon" href="static/images/fstiicon.ico" />
+</head>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h1 class="title is-1 publication-title">Agentic & AI Agents Systems Patterns</h1>
+
+        <div class="is-size-5 publication-authors" style="margin-top: 0.75rem;">
+          <span class="author-block">An extensive catalogue of AI agents and Agentic AI repositories and pattern categories used by systems deploying AI agents and agentic AI</span>
+        </div>
+
+        <div class="publication-links" style="margin-top: 1rem;">
+          <span class="link-block">
+            <a class="external-link button is-normal is-rounded is-dark" href="#browse">
+              <span>Browse</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a class="external-link button is-normal is-rounded is-dark" href="#agentic">
+              <span>Agentic</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a class="external-link button is-normal is-rounded is-dark" href="#aiagents">
+              <span>AI Agents</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a class="external-link button is-normal is-rounded is-dark" href="#patterns">
+              <span>Pattern Categorization</span>
+            </a>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" id="browse">
+  <div class="container is-fluid">
+    <div class="content">
+      <h2 class="title is-3">Definitions</h2>
+
+      <p>
+        <strong>Agentic AI systems:</strong>
+        Highly adaptable systems with goal-oriented autonomy, designed to pursue complex goals with minimal human intervention,
+        characterized by self-sufficiency and advanced decision making. Their applications consist of complex tasks with multiple objectives
+        and the agents showcase multistep planning, meta-learning and inter-agent communication capabilities (Acharya et al., 2025; Sapkota et al., 2025).
+      </p>
+
+      <p>
+        <strong>AI Agents systems:</strong>
+        More centered around the execution of a specific task, with supervised and rule-based learning mechanisms. Their planning and reasoning mechanisms are less advanced,
+        showing restricted autonomy and proactivity. Moreover, the different agents utilized in the system operate independently from each other and learn and adapt within their specific domain
+        (Sapkota et al., 2025).
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pattern-extraction">
+  <div class="container is-fluid">
+    <div class="content">
+      <h2 class="title is-3">Pattern-Extraction System</h2>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <img
+          src="static/images/patterns/AIAgentsPaperArchitecture-Page-1.drawio (1).png"
+          alt="Pattern-Extraction System diagram"
+          style="width: 700px; max-width: 100%; height: auto; border-radius: 10px;"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+  <section class="section" id="agentic">
+    <div class="container is-fluid">
+      <div class="content">
+        <h2 class="title is-3">Agentic AI repositories</h2>
+        <div class="table-container">
+          <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>GitHub Repository</th>
+                <th>Way of Extraction</th>
+                <th>Paper (If it exists)</th>
+                <th>Repo Description</th>
+              </tr>
+            </thead>
+            <tbody id="agentic-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="aiagents">
+    <div class="container is-fluid">
+      <div class="content">
+        <h2 class="title is-3">AI Agents repositories</h2>
+        <div class="table-container">
+          <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>GitHub Repository</th>
+                <th>Way of Extraction</th>
+                <th>Paper (If it exists)</th>
+                <th>Repo Description</th>
+              </tr>
+            </thead>
+            <tbody id="aiagents-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="patterns">
+    <div class="container is-fluid">
+      <div class="content">
+        <h2 class="title is-3">Pattern Categorization</h2>
+        <p>
+          Browse the PNG overviews for each pattern category. Click any card to open a larger view.
+        </p>
+
+        <!-- If you later add images, put them in: static/images/patterns/ -->
+        <div id="pattern-grid" class="columns is-multiline"></div>
+
+        <div id="pattern-empty" class="notification is-light" style="display:none; margin-top: 1rem;">
+          No pattern categories yet. Add PNGs under <code>static/images/patterns/</code> and list them in <code>patternImages</code>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container is-fluid">
+      <div class="content has-text-centered">
+        <p>
+          This page was built using the
+          <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noreferrer">Academic Project Page Template</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal must exist BEFORE the script wires up event listeners -->
+  <div class="modal" id="img-modal">
+    <div class="modal-background" id="img-modal-bg"></div>
+
+    <div class="modal-content"
+      id="modal-content-wrapper"
+      style="background: white; padding: 1rem; border-radius: 10px; max-height: 90vh;">
+
+      <!-- Pan container: scroll-based panning (smooth) -->
+      <div
+        id="pan-container"
+        style="background: white; overflow: auto; max-height: 85vh; border-radius: 10px; padding: 0.5rem;"
+      >
+        <img
+          id="img-modal-src"
+          src=""
+          alt=""
+          style="display: block; margin: 0 auto; background: white; object-fit: contain; transform: scale(1); transform-origin: top left; cursor: default; user-select: none; -webkit-user-drag: none; max-width: 100%; height: auto;"
+        />
+      </div>
+
+      <div class="buttons is-centered" style="margin-top: 0.75rem;">
+        <button class="button is-small" id="zoom-out" type="button">Zoom Out</button>
+        <button class="button is-small" id="zoom-reset" type="button">Reset</button>
+        <button class="button is-small" id="zoom-in" type="button">Zoom in</button>
+      </div>
+
+      <div class="box" style="margin-top: 0.75rem;">
+        <p class="title is-6" id="img-modal-title" style="margin-bottom: 0.25rem;"></p>
+        <p class="content is-size-7" id="img-modal-desc" style="margin-bottom: 0;"></p>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close" id="img-modal-close"></button>
+  </div>
+
+  <script>
+    // Data ported from your current Jekyll _data/*.yml files.
+   const agenticData = [
+     { repo: "https://github.com/google-gemini/gemini-cli", extraction: "GitHub", paper: "", description: ["Open-source AI agent that brings Google's Gemini model into your terminal."] },
+     { repo: "https://github.com/browser-use/browser-use", extraction: "GitHub", paper: "", description: ["It is a library designed specifically to let AI agents control and automate web browsers using LLMs."] },
+     { repo: "https://github.com/lobehub/lobe-chat", extraction: "GitHub", paper: "", description: ["Work-and-lifestyle framework to find, build, and collaborate with agent teammates that collaboratewith humans."] },
+     { repo: "https://github.com/microsoft/autogen", extraction: "GitHub", paper: "", description: ["Framework for creating multi-agent AI applications that can act autonomously or work alongside humans."] },
+     { repo: "https://github.com/Mintplex-Labs/anything-llm", extraction: "GitHub", paper: "", description: ["A full-stack application that enables you to turn any document, resource, or piece of content into context that any LLM can use as a reference during chatting."] },
+     { repo: "https://github.com/FlowiseAI/Flowise", extraction: "GitHub", paper: "", description: ["Open-source visual platform for building and orchestrating AI agents and LLM workflows using modular nodes, drag-and-drop design, and integrated tools."] },
+     { repo: "https://github.com/crewAIInc/crewAI", extraction: "GitHub", paper: "", description: ["Framework for orchestrating role-playing, autonomous AI agents, by fostering collaborative intelligence."] },
+     { repo: "https://github.com/reworkd/AgentGPT", extraction: "GitHub", paper: "", description: ["A platform built around autonomous AI agents that take goals from users and execute multi-step actions to complete them."] },
+     { repo: "https://github.com/agno-agi/agno", extraction: "GitHub", paper: "", description: ["A framework for building multi-agent systems that learn and improve with every interaction."] },
+     { repo: "https://github.com/feder-cr/Jobs_Applier_AI_Agent", extraction: "GitHub", description: "", description: ["Job Applier AI Web Agent"] },
+     { repo: "https://github.com/ComposioHQ/composio", extraction: "GitHub", paper: "", description: ["Contains Software Development Kits and is a way to connect AI agents to external services, handling authentication, tool management, and function calls so that the agent can actually act on tasks."] },
+     { repo: "https://github.com/CopilotKit/CopilotKit", extraction: "GitHub", paper: "", description: ["Agentic application framework that helps developers build in-app AI copilots and intelligent agents."] },
+     { repo: "https://github.com/block/goose", extraction: "GitHub", paper: "", description: ["Open-source AI agent framework that runs locally and can automate tasks, interacts with a codebase, executes code, debugs, orchestrates workflows, and operates tools based on natural language instructions."] },
+     { repo: "https://github.com/stitionai/devika", extraction: "GitHub", paper: "", description: ["An advanced AI software engineer that can understand high-level human instructions, break them down into steps, research relevant information, and write code to achieve the given objective."] },
+     { repo: "https://github.com/bytedance/UI-TARS-desktop", extraction: "GitHub", paper: "", description: ["Open Source multi modal AI Agent Stack."] },
+     { repo: "https://github.com/kortix-ai/suna", extraction: "GitHub", paper: "", description: ["Open-source generalist AI agent platform explicitly designed to act as an autonomous agent."] },
+     { repo: "https://github.com/coze-dev/coze-studio", extraction: "GitHub", paper: "", description: ["AI agent development Platform  with all-in-one visual tools, simplifying agent creation, debugging, and deployment."] },
+     { repo: "https://github.com/NirDiamant/GenAI_Agents", extraction: "GitHub", paper: "", description: ["Tutorials and implementations for various Generative AI Agent techniques"] },
+     { repo: "https://github.com/TransformerOptimus/SuperAGI", extraction: "GitHub", paper: "", description: ["A dev-first open source autonomous AI agent framework, enabling developers to build, manage & run useful autonomous agents quickly and reliably."] },
+     { repo: "https://github.com/google/adk-python", extraction: "GitHub", paper: "", description: ["An open-source, code-first Python toolkit for building, evaluating, and deploying sophisticated AI agents with flexibility and control."] },
+     { repo: "https://github.com/trycua/cua", extraction: "GitHub", paper: "", description: ["Infrastructure to build, benchmark, and deploy computer-use agents."] },
+     { repo: "https://github.com/bytedance/trae-agent", extraction: "GitHub", paper: "", description: ["LLM-based agent for general purpose software engineering tasks."] },
+     { repo: "https://github.com/TEN-framework/ten-framework", extraction: "GitHub", paper: "", description: ["Open-source framework for conversational voice AI agents."] },
+     { repo: "https://github.com/Upsonic/Upsonic", extraction: "GitHub", paper: "", description: ["Open-source AI agent development framework that makes building production-ready agents simple, safe, and scalable."] },
+     { repo: "https://github.com/livekit/agents", extraction: "GitHub", paper: "", description: ["Realtime framework for voice, video, and physical AI agents."] },
+     { repo: "https://github.com/awslabs/agent-squad", extraction: "GitHub", paper: "", description: ["Flexible and powerful framework for managing multiple AI agents and handling complex conversations."] },
+     { repo: "https://github.com/julep-ai/julep", extraction: "GitHub", paper: "", description: ["Open-source platform for building agent-based AI workflows that go far beyond simple chains of prompts. It lets the user orchestrate complex, multi-step processes with Large Language Models (LLMs) and tools without managing any infrastructure."] },
+     { repo: "https://github.com/crestalnetwork/intentkit", extraction: "GitHub", paper: "", desription: ["An open and fair framework for everyone to build AI agents equipped with powerful skills."] },
+     { repo: "https://github.com/kuafuai/DevOpsGPT", extraction: "GitHub", paper: "", description: ["Multi agent system for AI-driven software development."] },
+     { repo: "https://github.com/alibaba/spring-ai-alibaba", extraction: "GitHub", paper: "", description: ["Agentic AI Framework for Java Developers."] },
+     { repo: "https://github.com/MervinPraison/PraisonAI", extraction: "GitHub", paper: "", description: ["Production-ready Multi AI Agents framework, designed to create AI Agents to automate and solve problems ranging from simple tasks to complex challenges."] },
+     { repo: "https://github.com/GaiaNet-AI/gaianet-node", extraction: "GitHub", paper: "", description: ["Decentralized AI agent service."] },
+     { repo: "https://github.com/mastra-ai/mastra", extraction: "GitHub", paper: "", description: ["Tutorials on building LLM based Agents."] },
+     { repo: "https://github.com/simstudioai/sim", extraction: "GitHub", paper: "", description: ["Open-source platform to build and deploy AI agent workflows."] },
+     { repo: "https://github.com/agiresearch/OpenAGI", extraction: "Backward Snowballing", paper: "OpenAGI: When LLM Meets Domain Experts", description: ["open-source AGI research and development platform"] },
+     { repo: "https://github.com/Significant-Gravitas/AutoGPT", extraction: "Backward Snowballing", paper: "", description: ["A platform that allows  to create, deploy, and manage autonomous AI agents"] },
+     { repo: "https://github.com/camel-ai/camel", extraction: "Backward Snowballing", paper: "CAMEL: Communicative Agents for “Mind” Exploration of Large Language Model Society", description: ["The framework enables multi-agent systems to collaborate and solve tasks autonomously"] },
+     { repo: "https://github.com/Codium-ai/AlphaCodium", extraction: "Backward Snowballing", paper: "Code Generation with AlphaCodium: From Prompt Engineering to Flow  Engineering", description: ["a test-based, multi-stage, code-oriented iterative agentic system"] },
+     { repo: "https://github.com/CraftJarvis/MC-Planner", extraction: "Backward Snowballing", paper: "Describe, Explain, Plan and Select: Interactive Planning with Large Language Models Enables Open-World Multi-Task Agent", description: ["An agentic AI system, that performs autonomous planning in Minecraft environments"] },
+     { repo: "https://github.com/FoundationAgents/MetaGPT", extraction: "Backward Snowballing", paper: "METAGPT: META PROGRAMMING FOR A  MULTI-AGENT COLLABORATIVE FRAMEWORK", description: ["The Multi-Agent Framework: First AI Software Company powered by LLMs"] },
+     { repo: "https://github.com/FSoft-AI4Code/AgileCoder", extraction: "Backward Snowballing", paper: "AgileCoder: Dynamic Collaborative Agents for Software Development based on Agile Methodology", description: ["Incorporating Agile methodology into agents to improve code generation"] },
+     { repo: "https://github.com/Gentopia-AI/Gentopia", extraction: "Backward Snowballing", paper: "Gentopia.AI : A Collaborative Platform for Tool-Augmented LLMs", description: ["A lightweight and extensible framework for LLM-based agents"] },
+     { repo: "https://github.com/giorgiopiatti/GovSim", extraction: "Backward Snowballing", paper: "Cooperate or Collapse: Emergence of Sustainable Cooperation in a Society of LLM Agents", description: ["A  generative simulation platform designed\n\tto emulate governance systems"] },
+     { repo: "https://github.com/HITsz-TMG/FilmAgent", extraction: "Backward Snowballing", paper: "FilmAgent: A Multi-Agent Framework for End-to-End Film Automation in Virtual 3D Spaces", description: ["A multi-agent collaborative framework for end-to-end film production"] },
+     { repo: "https://github.com/jiangjiechen/auction-arena", extraction: "Backward Snowballing", paper: "Put Your Money Where Your Mouth Is: Evaluating Strategic Planning and Execution of LLM Agents in an Auction Arena", description: ["Bidder Agent navigates through the auction with strategic reasoning"] },
+     { repo: "https://github.com/jinlab-imvr/MedAgent-Pro", extraction: "Backward Snowballing", paper: "MedAgent-Pro: Towards Evidence-based Multi-modal Medical Diagnosis via Reasoning Agentic Workflow", description: "an agentic framework designed for evidence-based reasoning" },
+     { repo: "https://github.com/joonspk-research/generative-agents", extraction: "Backward Snowballing", paper: "Generative Agents: Interactive Simulacra of Human Behavior", description: ["Generative agents—computational agents that simulate believable human behavior"] },
+     { repo: "https://github.com/lapisrocks/LanguageAgentTreeSearch", extraction: "Backward Snowballing", paper: "Language Agent Tree Search Unifies Reasoning Acting and Planning in Language Models", description: ["General framework that synergizes the capabilities of LLM agents and tree search"] },
+     { repo: "https://github.com/LeapLabTHU/ExpeL", extraction: "Backward Snowballing", paper: "ExpeL: LLM Agents Are Experiential Learners", description: ["Agent that autonomously gathers experiences and improves performance"]},
+     { repo: "https://github.com/Link-AGI/AutoAgents", extraction: "Backward Snowballing", paper: "AutoAgents: A Framework for Automatic Agent Generation", description: ["A framework that adaptively generates and coordinates multiple agents"]},
+     { repo: "https://github.com/MineDojo/Voyager", extraction: "Backward Snowballing", paper: "VOYAGER: An Open-Ended Embodied Agent with Large Language Models", description:["An Open-Ended lifelong learning Embodied Agent powered by LLMs"]},
+     { repo: "https://github.com/noahshinn/reflexion", extraction: "Backward Snowballing", paper: "Reflexion: Language Agents with Verbal Reinforcement Learning", description:["A novel framework to reinforce language agents with self-reflection"]},
+     { repo: "https://github.com/OpenBMB/AgentVerse", extraction: "Backward Snowballing", paper: "AGENTVERSE: FACILITATING MULTI-AGENT COLLABORATION AND EXPLORING EMERGENT BEHAVIORS", description:["Framework designed to facilitate the deployment of multi-agent systems"]},
+     { repo: "https://github.com/OpenBMB/ChatDev", extraction: "Backward Snowballing", paper: "ChatDev: Communicative Agents for Software Development", description: ["A chat-powered software development framework driven by multiple agents"]},
+     { repo: "https://github.com/OpenBMB/XAgent", extraction: "Backward Snowballing", paper: "", description: ["An Autonomous LLM Agent for Complex Task Solving"]},
+     { repo: "https://github.com/Paitesanshi/CharacterBox", extraction: "Backward Snowballing", paper: "CharacterBox: Evaluating the Role-Playing Capabilities of LLMs in Text-Based Virtual Worlds", description: ["A dynamic, multi-agent virtual world tailor-made for character simulation"]},
+     { repo: "https://github.com/PKU-Alignment/ProAgent", extraction: "Backward Snowballing", paper: "ProAgent: Building Proactive Cooperative Agents with Large Language Models", description:["A a novel framework that harnesses large language models for agentic planning"]},
+     { repo: "https://github.com/SamuelSchmidgall/AgentLaboratory", extraction: "Backward Snowballing", paper: "Agent Laboratory: Using LLM Agents as Research Assistants", description: ["This framework accepts a human-provided research idea and autonomously executes experiments"]},
+     { repo: "https://github.com/SMARTlab-Purdue/SMART-LLM", extraction: "Backward Snowballing", paper: "SMART-LLM: Smart Multi-Agent Robot Task Planning using Large Language Models", description: ["An innovative framework designed for embodied multi-agent learning"]},
+     { repo: "https://github.com/TangJiakai/GenSim", extraction: "Backward Snowballing", paper: "GenSim: A General Social Simulation Platform with Large Language Model based Agents", description: ["A novel LLM-agent-based simulation platform called GenSim"]},
+     { repo: "https://github.com/thunlp/ChatEval", extraction: "Backward Snowballing", paper: "ChatEval: Towards Better LLM-based Evaluators through Multi-Agent Debate", description: ["ChatEval is designed to simplify the process of human evaluation on generated text. When given different pieces of text, roles (acted by LLMs) within ChatEval can autonomously debate the nuances and disparities, drawing upon their assigned personas, and subsequently provide their judgments"]},
+     { repo: "https://github.com/tsukushiAI/self-organized-agent", extraction: "Backward Snowballing", paper: "Self-Organized Agents: A LLM Multi-Agent Framework toward Ultra Large-Scale Code Generation and Optimization", description: ["Self-Organized multi-Agent framework (SoA), a novel multi-agent framework that enables the scalable and efficient generation and optimization of large-scale code."]},
+     { repo: "https://github.com/ur-whitelab/chemcrow-public", extraction: "Backward Snowballing", paper: "ChemCrow: Augmenting large-language models with chemistry tools", description:["LLM-based chemistry agent that integrates 18 expert-designed tools to support complex tasks in organic synthesis, drug discovery, and materials design. "]},
+     { repo: "https://github.com/weirayao/Retroformer", extraction: "Backward Snowballing", paper: "RETROFORMER: RETROSPECTIVE LARGE LANGUAGE AGENTS WITH POLICY GRADIENT OPTIMIZATION", description:["A principled framework for reinforcing large language agents by learning a retrospective model, which automatically tunes the language agent prompts from environment feedback through policy gradient"]},
+     { repo: "https://github.com/wekjsdvnm/Agent-Trading-Arena", extraction: "Backward Snowballing", paper: "Agent Trading Arena: A Study on Numerical Understanding in LLM-Based Agents", description:["A virtual zero-sum stock market in which LLM-based agents engage in competitive multi-agent trading and directly impact price dynamics. By simulating realistic bid-ask interactions, our platform enables training in scenarios that closely mirror live markets, thereby narrowing the gap between training and evaluation"]},
+     { repo: "https://github.com/wuhy68/ChatEDA", extraction: "Backward Snowballing", paper: "ChatEDA: A Large Language Model Powered Autonomous Agent for EDA", description:["An autonomous agent for EDA empowered by an LLM, AutoMage, complemented by EDA tools serving as executors. ChatEDA streamlines the design flow from the register-transfer level (RTL) to the graphic data system version II (GDSII) by effectively managing task decomposition, script generation, and task execution"]},
+     { repo: "https://github.com/xlang-ai/OpenAgents", extraction: "Backward Snowballing", paper: "OpenAgents: An Open Platform for Language Agents in the Wild", description:["An open platform for using and hosting language agents in the wild of everyday life. OpenAgents includes three agents: (1) Data Agent for data analysis with Python/SQL and data tools; (2) Plugins Agent with 200+ daily API tools; (3) Web Agent for autonomous web browsing"]},
+     { repo: "https://github.com/Yifan-Song793/RestGPT", extraction: "Backward Snowballing", paper: "RestGPT: Connecting Large Language Models with Real-World RESTful APIs", description: ["An LLM-based autonomous agent controlling real-world applications via RESTful APIs"]},
+     { repo: "https://github.com/yoheinakajima/babyagi", extraction: "Backward Snowballing", paper: "", description:["An experimental framework for a self-building autonomous agent"]},
+     { repo: "https://github.com/ysymyth/ReAct", extraction: "Backward Snowballing", paper: "ReAct: Synergizing Reasoning and Acting in Language Models", description:["Use of LLMs to generate both reasoning traces and task-specific actions in an interleaved manner, allowing for greater synergy between the two: reasoning traces help the model induce, track, and update action plans as well as handle exceptions, while actions allow it to interface with external sources, such as knowledge bases or environments, to gather additional information."]},
+     { repo: "https://github.com/microsoft/autogen/tree/main/python/packages/autogen-magentic-one", extraction: "Forward Snowballing", paper: "Magentic-One: A Generalist Multi-Agent System for Solving Complex Tasks", description: ["A generalist multi-agent system for solving open-ended web and file-based tasks across a variety of domains. It represents a significant step forward for multi-agent systems, achieving competitive performance on a number of agentic benchmarks"]},
+     { repo: "https://github.com/microsoft/magentic-ui", extraction: "Forward Snowballing", paper: "Magentic-UI: Towards Human-in-the-loop Agentic Systems", description: ["Agentic AI layer"]},
+     { repo: "https://github.com/cooelf/Auto-GUI", extraction: "Forward Snowballing", paper: "You Only Look at Screens: Multimodal Chain-of-Action Agents", description: ["A multimodal solution that directly interacts with the interface, bypassing the need for environment parsing or reliance on applicationdependent APIs. Moreover, it utilizes a chainof-action technique—leveraging a series of intermediate previous action histories and future action plans—to help the agent decide what action to execute"]},
+     { repo: "https://github.com/sola-st/RepairAgent", extraction: "Forward Snowballing", paper: "RepairAgent: An Autonomous, LLM-Based Agent for Program Repair", description: ["First work to address the program repair challenge through an autonomous agent based on a large language model (LLM). It treats the LLM as an agent capable of autonomously planning and executing actions to fix bugs by invoking suitable tools"]},
+     { repo: "https://github.com/OS-Copilot/OS-Copilot", extraction: "Forward Snowballing", paper: "OS-COPILOT: TOWARDS GENERALIST COMPUTER AGENTS WITH SELF-IMPROVEMENT", description: ["A self-improving embodied conversational agent seamlessly integrated into the operating system to automate our daily tasks"]},
+     { repo: "https://github.com/thinkwee/iAgents", extraction: "Forward Snowballing", paper: "Autonomous Agents for Collaborative Task under Information Asymmetry", description: ["In iAgents, the human social network is mirrored in the agent network, where agents proactively exchange human information necessary for task resolution, thereby overcoming information asymmetry. iAgents employs a novel agent reasoning mechanism, InfoNav, to navigate agents' communication toward effective information exchange. Together with InfoNav, iAgents organizes human information in a mixed memory to provide agents with accurate and comprehensive information for exchange."]},
+     { repo: "https://github.com/mezzi33/SafeDrive", extraction: "Forward Snowballing", paper: "SafeDrive: Knowledge- and Data-Driven Risk-Sensitive Decision-Making for Autonomous Vehicles with Large Language Models", description: ["A a risk-sensitive decision-making framework for autonomous vehicles (AVs) that generates safe, real-time decisions based on real-world scene description inputs. It operates through a four-module cycle: the Risk Quantification Module, Memory Module, Reasoning Module, and Reflection Module, with large language models (LLMs) serving as the central agent."]},
+     { repo: "https://github.com/UMass-Embodied-AGI/Virtual-Community", extraction: "Forward Snowballing", paper: "Virtual Community: An Open World for Humans, Robots, and Society", description: ["Virtual Community is an open-world platform that simulates human-robot coexistence in shared communities, featuring a physics-based multi-agent simulator and real-world 3D scenes to study embodied social intelligence at scale."]},
+     { repo: "https://github.com/Alibaba-NLP/DeepResearch", extraction: "Forward Snowballing", paper: "Repurposing Synthetic Data for Fine-grained Search Agent Supervision", description: ["An agentic large language model featuring 30.5 billion total parameters, with only 3.3 billion activated per token."]},
+     { repo: "https://github.com/zzhaesc/MMCNav", extraction: "Forward Snowballing", paper: "MMCNav: MLLM-empowered Multi-agent Collaboration for Outdoor Visual Language Navigation", description: ["MLLM-empowered Multi-agent Collaboration for Outdoor Visual Language Navigation"]},
+     { repo: "https://github.com/nuster1128/TrendSim", extraction: "Forward Snowballing", paper: "TrendSim: Simulating Trending Topics in Social Media Under Poisoning Attacks with LLM-based Multi-agent System", description: ["An LLM-based multi-agent system to simulate trending topics in social media under poisoning attacks."]},
+     { repo: "https://github.com/Arvid-pku/Godel_Agent", extraction: "Forward Snowballing", paper: "Go ̈del Agent: A Self-Referential Agent Framework for Recursively  Self-Improvement", description: ["A self-referential agent framework inspired by the Gödel machine concept. It’s designed so that an LLM-based agent can modify and improve its own logic and behavior over time, guided only by high-level goals."]},
+     { repo: "https://github.com/georgewanglz2019/LLMTraveler", extraction: "Forward Snowballing", paper: "Agentic Large Language Models for day-to-day route choices", description: ["This agent integrates an LLM as its core, equipped with a memory system that learns from past experiences and makes decisions by balancing retrieved data and personality traits. The study systematically evaluates the LLMTraveler’s ability to replicate human-like decision-making through two stages of day-to-day (DTD) congestion games."]},
+     { repo: "https://github.com/sunnweiwei/FoldAgent", extraction: "Forward Snowballing", paper: "Scaling Long-Horizon LLM Agent via Context-Folding", description: ["A framework that empowers agents to actively manage their working context. An agent can procedurally branch into a sub-trajectory to handle a subtask and then fold it upon completion, collapsing the intermediate steps while retaining a concise summary of the outcome."]},
+     { repo: "https://github.com/opendatalab/Earth-Agent", extraction: "Forward Snowballing", paper: "EARTH-AGENT: UNLOCKING THE FULL LANDSCAPE OF EARTH OBSERVATION WITH AGENTS", description: [" The first agentic framework that unifies RGB and spectral EO data within an MCP-based tool ecosystem, enabling cross-modal, multi-step, and quantitative spatiotemporal reasoning beyond pretrained MLLMs."]},
+     { repo: "https://github.com/lennendd/TableMind", extraction: "Forward Snowballing", paper: "TableMind: An Autonomous Programmatic Agent for Tool-Augmented Table Reasoning", description: ["A system that introduces the study of autonomous table reasoning with large language models. We propose a two-stage fine-tuning framework that combines supervised trajectory learning with reinforcement optimization via RAPO, a rank-aware strategy for improving reasoning accuracy. Our agent performs multi-turn tool invocation, executes code in a secure sandbox for precise numerical analysis, and leverages planning and reflection for adaptive strategies."]},
+     { repo: "https://github.com/0russwest0/Agent-R1", extraction: "Forward Snowballing", paper: "Agent-R1: Training Powerful LLM Agents with End-to-End Reinforcement Learning", description: ["An open-source framework designed to accelerate research and development at the critical intersection of RL and Agent. The framework employs End-to-End reinforcement learning to train agents in specific environments."]},
+     { repo: "https://github.com/DataBassGit/Auto-GPT", extraction: "Forward Snowballing", paper: "Agentic Services Computing", description: ["An experimental open-source application showcasing the capabilities of the GPT-4 language model. This program, driven by GPT-4, autonomously develops and manages businesses to increase net worth."]},
+     { repo: "https://github.com/mlbio-epfl/LaMer", extraction: "Forward Snowballing", paper: "META-RL INDUCES EXPLORATION IN  LANGUAGE AGENTS", description: ["A general Meta-RL framework that enables LLM agents to actively explore and learn from the environment feedback at test time."]},
+     { repo: "https://github.com/a16z-infra/ai-town", extraction: "Forward Snowballing", paper: "Is Generative Artificial Intelligence Ready for Computational Social Science?", description: ["A MIT-licensed, deployable starter kit for building and customizing your own version of AI town - a virtual town where AI characters live, chat and socialize."]},
+     { repo: "https://github.com/TsinghuaC3I/MARTI", extraction: "Forward Snowballing", paper: "LightAgent: Production-level Open-source Agentic AI Framework", description: ["MARTI is an open-source framework for training LLM-based Multi-Agent Systems (MAS) with Reinforcement Learning (RL). It enables powerful, scalable, and adaptive workflows by combining centralized multi-agent interactions with distributed policy training. MARTI supports both built-in graph-based workflows and popular third-party multi-agent frameworks."]},
+     { repo: "https://github.com/astrazeneca/cellatria", extraction: "Forward Snowballing", paper: "An agentic AI framework for ingestion and standardization of single-cell RNA-seq data analysis", description: ["An Agentic AI Framework for Ingestion and Standardization of Single-Cell RNA-seq Data Analysis"]},
+     { repo: "https://github.com/atomgptlab/agapi", extraction: "Forward Snowballing", paper: "AGAPI-Agents: An Open-Access Agentic AI  Platform for Accelerated Materials Design on  AtomGPT.org", description: ["AGAPI removes complex software setups, commercial API cost allowing you to perform advanced predictions, analyses, and explorations through natural language or Python, accelerating materials discovery and design."]},
+     { repo: "https://github.com/OSU-NLP-Group/ChemToolAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.07228", description: [""] },
+     { repo: "https://github.com/Kaiwen-Zhu/AgenticIR", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.17809", description: [""] },
+     { repo: "https://github.com/Arvid-pku/Godel_Agent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.04444", description: [""] },
+     { repo: "https://github.com/huiziy/AIPatient", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.18924", description: [""] },
+     { repo: "https://github.com/Tencent/CogKernel", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.10277", description: [""] },
+     { repo: "https://github.com/lamm-mit/SciAgentsDiscovery", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.05556", description: [""] },
+     { repo: "https://github.com/Jpickard1/BRAD", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.02864", description: [""] },
+     { repo: "https://github.com/ShengranHu/ADAS", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.08435", description: [""] },
+     { repo: "https://github.com/fuzzylabs/MindGPT", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.05361", description: [""] },
+     { repo: "https://github.com/HRI-EU/tulip_agent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.21778", description: [""] },
+     { repo: "https://github.com/All-Hands-AI/OpenHands", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.16741", description: [""] },
+     { repo: "https://github.com/EmergenceAI/Agent-E", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.13032", description: [""] },
+     { repo: "https://github.com/locross93/Hypothetical-Minds/", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.07086", description: [""] },
+     { repo: "https://github.com/thinkwee/iAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2406.14928", description: [""] },
+     { repo: "https://github.com/siyuyuan/evoagent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2406.14228", description: [""] },
+     { repo: "https://github.com/Yifan-Song793/ETO", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.02502", description: [""] },
+     { repo: "https://github.com/zwq2018/Agent-Pro", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.17574", description: [""] },
+     { repo: "https://github.com/metauto-ai/gptswarm", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.16823", description: [""] },
+     { repo: "https://github.com/thunlp/MatPlotAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.11453", description: [""] },
+     { repo: "https://github.com/zjunlp/AutoAct", extraction: "arxiv", paper: "https://arxiv.org/pdf/2401.05268", description: [""] },
+     { repo: "https://github.com/OpenBMB/ProAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.10751", description: [""] },
+     { repo: "https://github.com/modelscope/modelscope-agent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2309.00986", description: [""] },
+     { repo: "https://github.com/FranxYao/GPT-Bargaining", extraction: "arxiv", paper: "https://arxiv.org/pdf/2305.10142", description: [""] },
+     { repo: "https://github.com/CMBAgents/cmbagent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2507.07257", description: [""] },
+     { repo: "https://github.com/melhzy/ADAM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2501.08324", description: [""] },
+     { repo: "https://github.com/modelscope/AgentEvolver", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.10395", description: [""] },
+     { repo: "https://github.com/dualverse-ai/station", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.06309", description: [""] },
+     { repo: "https://github.com/RedaElMakroum/agentic-ai-hems", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.26603", description: [""] },
+     { repo: "https://github.com/kenhuangus/AAGATE", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.25863", description: [""] },
+     { repo: "https://github.com/HatimChergui/agentic-6g-cross-domain-negotiation", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.19973", description: [""] },
+     { repo: "https://github.com/thu-nics/MARS", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.15414", description: [""] },
+    ];
+
+
+let patternCounts = {
+  "Github": {
+    "Architecture": 352,
+    "Audit": 91,
+    "Authentication": 79,
+    "Cognitive": 742,
+    "Communication": 120,
+    "Context-Based": 360,
+    "Coordination-Cooperation": 332,
+    "Deployment": 87,
+    "Error Handling": 313,
+    "Evaluation and QA": 116,
+    "Event Driven & Asynchronous": 173,
+    "Explainability & Transparency": 589,
+    "Goal Creation": 229,
+    "Governance & Ethical Application": 285,
+    "Input Modality": 107,
+    "Input-Output Security": 51,
+    "Interaction": 1605,
+    "Main": 393,
+    "Memory": 404,
+    "Memory Type": 97,
+    "Model Composition": 33,
+    "Monitoring & Adaptation": 31,
+    "Multi-Agent Collaboration": 157,
+    "Orchestration": 112,
+    "Output Validation": 51,
+    "Performance & Optimization": 143,
+    "Planning": 288,
+    "Privacy": 67,
+    "Process Management": 218,
+    "Prompt Pattern": 241,
+    "Recovery Strategy": 140,
+    "Reflection": 470,
+    "Resource Management": 336,
+    "Role-Based": 108,
+    "Security": 51,
+    "Storage and Retrieval": 423,
+    "Tool Use": 535,
+    "Workflow": 931
+  },
+  "arXiv": {
+    "Architecture": 3999,
+    "Audit": 356,
+    "Authentication": 259,
+    "Cognitive": 8153,
+    "Communication": 1302,
+    "Context-Based": 3242,
+    "Coordination-Cooperation": 3868,
+    "Deployment": 460,
+    "Error Handling": 3480,
+    "Evaluation and QA": 2090,
+    "Event Driven & Asynchronous": 1983,
+    "Explainability & Transparency": 4665,
+    "Goal Creation": 2514,
+    "Governance & Ethical Application": 3725,
+    "Input Modality": 1056,
+    "Input-Output Security": 841,
+    "Interaction": 16433,
+    "Main": 4571,
+    "Memory": 4881,
+    "Memory Type": 526,
+    "Model Composition": 119,
+    "Monitoring & Adaptation": 389,
+    "Multi-Agent Collaboration": 1867,
+    "Orchestration": 1438,
+    "Output Validation": 841,
+    "Performance & Optimization": 1360,
+    "Planning": 3369,
+    "Privacy": 98,
+    "Process Management": 2415,
+    "Prompt Pattern": 2437,
+    "Recovery Strategy": 2347,
+    "Reflection": 5743,
+    "Resource Management": 3479,
+    "Role-Based": 938,
+    "Security": 841,
+    "Storage and Retrieval": 5141,
+    "Tool Use": 5839,
+    "Workflow": 11205
+  },
+  "Forward": {
+    "Architecture": 1551,
+    "Audit": 25,
+    "Authentication": 154,
+    "Cognitive": 3343,
+    "Communication": 497,
+    "Context-Based": 1478,
+    "Coordination-Cooperation": 1496,
+    "Deployment": 169,
+    "Error Handling": 1410,
+    "Evaluation and QA": 775,
+    "Event Driven & Asynchronous": 701,
+    "Explainability & Transparency": 2421,
+    "Goal Creation": 1030,
+    "Governance & Ethical Application": 1504,
+    "Input Modality": 374,
+    "Input-Output Security": 327,
+    "Interaction": 7117,
+    "Main": 1846,
+    "Memory": 2161,
+    "Memory Type": 240,
+    "Model Composition": 34,
+    "Monitoring & Adaptation": 112,
+    "Multi-Agent Collaboration": 762,
+    "Orchestration": 495,
+    "Output Validation": 327,
+    "Performance & Optimization": 483,
+    "Planning": 1257,
+    "Privacy": 10,
+    "Process Management": 941,
+    "Prompt Pattern": 989,
+    "Recovery Strategy": 797,
+    "Reflection": 2269,
+    "Resource Management": 1410,
+    "Role-Based": 353,
+    "Security": 327,
+    "Storage and Retrieval": 2255,
+    "Tool Use": 2347,
+    "Workflow": 4390
+  },
+  "Backward": {
+    "Architecture": 799,
+    "Audit": 2,
+    "Authentication": 65,
+    "Cognitive": 1872,
+    "Communication": 215,
+    "Context-Based": 785,
+    "Coordination-Cooperation": 811,
+    "Deployment": 81,
+    "Error Handling": 788,
+    "Evaluation and QA": 397,
+    "Event Driven & Asynchronous": 310,
+    "Explainability & Transparency": 1239,
+    "Goal Creation": 599,
+    "Governance & Ethical Application": 644,
+    "Input Modality": 206,
+    "Input-Output Security": 131,
+    "Interaction": 4009,
+    "Main": 1123,
+    "Memory": 1136,
+    "Memory Type": 116,
+    "Model Composition": 16,
+    "Monitoring & Adaptation": 45,
+    "Multi-Agent Collaboration": 364,
+    "Orchestration": 255,
+    "Output Validation": 131,
+    "Performance & Optimization": 278,
+    "Planning": 851,
+    "Privacy": 6,
+    "Process Management": 493,
+    "Prompt Pattern": 654,
+    "Recovery Strategy": 428,
+    "Reflection": 1388,
+    "Resource Management": 674,
+    "Role-Based": 196,
+    "Security": 131,
+    "Storage and Retrieval": 1101,
+    "Tool Use": 1338,
+    "Workflow": 2490
+  }
+};  
+// pattern occurrences across all extraction methods:
+// Github + arXiv + Forward + Backward
+function getTotalPatternsForCategory(patternCounts, categoryName) {
+  const extractionMethods = ["Github", "arXiv", "Forward", "Backward"];
+  const totals = {};
+
+  extractionMethods.forEach((method) => {
+    const categoryPatterns = patternCounts[method]?.[categoryName];
+
+    if (typeof categoryPatterns === "number") {
+      totals[method] = categoryPatterns;
+      return;
+    }
+
+    if (!categoryPatterns || typeof categoryPatterns !== "object") {
+      return;
+    }
+
+    Object.entries(categoryPatterns).forEach(([patternName, count]) => {
+      totals[patternName] = (totals[patternName] || 0) + Number(count || 0);
+    });
+  });
+
+  return totals;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+// This converts the pattern count object into readable HTML.
+// It sorts patterns from highest occurrence to lowest.
+function formatPatternOccurrences(patterns) {
+  const patternsHtml = Object.entries(patterns || {})
+    .sort((a, b) => b[1] - a[1])
+    .map(([pattern, count]) => `<li><strong>${escapeHtml(pattern)}</strong>: ${escapeHtml(count)}</li>`)
+    .join("");
+
+  return patternsHtml
+    ? `<ul>${patternsHtml}</ul>`
+    : "No pattern occurrence data available.";
+}
+
+// Image cards + total pattern occurrences across all extraction methods
+const patternImages = [
+  { title: "Architecture", file: "Architecture.png", patterns: getTotalPatternsForCategory(patternCounts, "Architecture") },
+  { title: "Audit", file: "Audit.png", patterns: getTotalPatternsForCategory(patternCounts, "Audit") },
+  { title: "Authentication", file: "Authentication.png", patterns: getTotalPatternsForCategory(patternCounts, "Authentication") },
+  { title: "Cognitive", file: "Cognitive.png", patterns: getTotalPatternsForCategory(patternCounts, "Cognitive") },
+  { title: "Communication", file: "Comminication.png", patterns: getTotalPatternsForCategory(patternCounts, "Communication") },
+  { title: "Context-Based", file: "Context-Based.png", patterns: getTotalPatternsForCategory(patternCounts, "Context-Based") },
+  { title: "Coordination-Cooperation", file: "Coordination-Cooperation.png", patterns: getTotalPatternsForCategory(patternCounts, "Coordination-Cooperation") },
+  { title: "Deployment", file: "Deployment.png", patterns: getTotalPatternsForCategory(patternCounts, "Deployment") },
+  { title: "Error Handling", file: "ErrorHandling.png", patterns: getTotalPatternsForCategory(patternCounts, "Error Handling") },
+  { title: "Evaluation and QA", file: "EvaluationandQA.png", patterns: getTotalPatternsForCategory(patternCounts, "Evaluation and QA") },
+  { title: "Event Driven and Asynchronous", file: "EventDrivenAsynch.png", patterns: getTotalPatternsForCategory(patternCounts, "Event Driven & Asynchronous") },
+  { title: "Explainability and Transparency", file: "ExplainabilityandTransparency.png", patterns: getTotalPatternsForCategory(patternCounts, "Explainability & Transparency") },
+  { title: "Goal Creation", file: "GoalCreation.png", patterns: getTotalPatternsForCategory(patternCounts, "Goal Creation") },
+  { title: "Governance", file: "Governance.png", patterns: getTotalPatternsForCategory(patternCounts, "Governance & Ethical Application") },
+  { title: "Input Modality", file: "InputModality.png", patterns: getTotalPatternsForCategory(patternCounts, "Input Modality") },
+  { title: "Input-Output", file: "InputOutput.png", patterns: getTotalPatternsForCategory(patternCounts, "Input-Output Security") },
+  { title: "Interaction", file: "Interaction.png", patterns: getTotalPatternsForCategory(patternCounts, "Interaction") },
+  { title: "Main", file: "Main.png", patterns: getTotalPatternsForCategory(patternCounts, "Main") },
+  { title: "Memory", file: "Memory.png", patterns: getTotalPatternsForCategory(patternCounts, "Memory") },
+  { title: "Memory Type", file: "MemoryType.png", patterns: getTotalPatternsForCategory(patternCounts, "Memory Type") },
+  { title: "Model Composition", file: "ModelComposition.png", patterns: getTotalPatternsForCategory(patternCounts, "Model Composition") },
+  { title: "Monitoring and Adaptation", file: "MonitoringandAdaptation.png", patterns: getTotalPatternsForCategory(patternCounts, "Monitoring & Adaptation") },
+  { title: "Multi-Agent-Collaboration", file: "Multi-Agent-Collaboration.png", patterns: getTotalPatternsForCategory(patternCounts, "Multi-Agent Collaboration") },
+  { title: "Orchestration", file: "Orchestration.png", patterns: getTotalPatternsForCategory(patternCounts, "Orchestration") },
+  { title: "OutputValidation", file: "OutputValidation.png", patterns: getTotalPatternsForCategory(patternCounts, "Output Validation") },
+  { title: "Performance", file: "Performance.png", patterns: getTotalPatternsForCategory(patternCounts, "Performance & Optimization") },
+  { title: "Planning", file: "Planning.png", patterns: getTotalPatternsForCategory(patternCounts, "Planning") },
+  { title: "Privacy", file: "Privacy.png", patterns: getTotalPatternsForCategory(patternCounts, "Privacy") },
+  { title: "Process Management", file: "ProcessManagement.png", patterns: getTotalPatternsForCategory(patternCounts, "Process Management") },
+  { title: "Prompt", file: "PromptPattern.png", patterns: getTotalPatternsForCategory(patternCounts, "Prompt Pattern") },
+  { title: "Recovery Strategy", file: "RecoveryStrategy.png", patterns: getTotalPatternsForCategory(patternCounts, "Recovery Strategy") },
+  { title: "Reflection", file: "Reflection.png", patterns: getTotalPatternsForCategory(patternCounts, "Reflection") },
+  { title: "Resource Management", file: "ResourceManagement.png", patterns: getTotalPatternsForCategory(patternCounts, "Resource Management") },
+  { title: "Role-Based", file: "RoleBased.png", patterns: getTotalPatternsForCategory(patternCounts, "Role-Based") },
+  { title: "Security", file: "Security.png", patterns: getTotalPatternsForCategory(patternCounts, "Security") },
+  { title: "Storage and Retrieval", file: "StorageandRetrieval.png", patterns: getTotalPatternsForCategory(patternCounts, "Storage and Retrieval") },
+  { title: "Tool Use", file: "ToolUse.png", patterns: getTotalPatternsForCategory(patternCounts, "Tool Use") },
+  { title: "Workflow", file: "Workflow.png", patterns: getTotalPatternsForCategory(patternCounts, "Workflow") },
+];
+
+const patternCategoryNames = {
+  "Event Driven and Asynchronous": "Event Driven & Asynchronous",
+  "Explainability and Transparency": "Explainability & Transparency",
+  "Governance": "Governance & Ethical Application",
+  "Input-Output": "Input-Output Security",
+  "Monitoring and Adaptation": "Monitoring & Adaptation",
+  "Multi-Agent-Collaboration": "Multi-Agent Collaboration",
+  "OutputValidation": "Output Validation",
+  "Performance": "Performance & Optimization",
+  "Prompt": "Prompt Pattern"
+};
+
+function refreshPatternImages() {
+  patternImages.forEach((image) => {
+    const categoryName = image.category || patternCategoryNames[image.title] || image.title;
+    image.patterns = getTotalPatternsForCategory(patternCounts, categoryName);
+  });
+}
+
+async function loadPatternCounts() {
+  try {
+    const response = await fetch("summed_categories.json", { cache: "no-store" });
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (data && typeof data === "object") {
+      patternCounts = data;
+      refreshPatternImages();
+    }
+  } catch {
+    refreshPatternImages();
+  }
+}
+
+   const agentData = [
+     { repo: "https://github.com/bear96/GABM-Epidemic", extraction: "Backward Snowballing", paper: "Epidemic Modeling with Generative Agents", description:["development of a generative agent-based model for epidemic simulation."]},
+     { repo: "https://github.com/bhargaviparanjape/language-programmes", extraction: "Backward Snowballing", paper: "ART: Automatic multi-step reasoning and tool-use for large language models", description:["a framework that uses frozen LLMs to automatically generate intermediate reasoning steps as a program. Given a new task to solve, ART selects demonstrations of multistep reasoning and tool use from a task library"]},
+     { repo: "https://github.com/bin123apple/AutoCoder", extraction: "Backward Snowballing", paper: "AutoCoder: Enhancing Code Large Language Model with AIEV-INSTRUCT", description:["a code LLM trained using AIEV-INSTRUCT that excels at autonomous coding tasks."]},
+     { repo: "https://github.com/epfl-dlab/cc_flows", extraction: "Backward Snowballing", paper: "Flows: Building Blocks of Reasoning and Collaborating AI", description:["Flows is a modular interaction and orchestration framework for LLM agents."]},
+     { repo: "https://github.com/FloridSleeves/LLMDebugger", extraction: "Backward Snowballing", paper: "Debug like a Human: A Large Language Model Debugger via Verifying Runtime Execution Step by Step", description:["Debugging framework that enables LLMs to refine their outputs autonomously."]},
+     { repo: "https://github.com/FreedomIntelligence/Chain-of-Agents", extraction: "Backward Snowballing", paper: "CoD, Towards an Interpretable Medical Agent using Chain of Diagnosis", description:["An interpretable large language model (LLM) for multi-agent reasoning workflows."]},
+     { repo: "https://github.com/gersteinlab/MedAgents", extraction: "Backward Snowballing", paper: "MedAgents: Large Language Models as Collaborators for Zero-shot Medical Reasoning", description: ["A novel multi-disciplinary collaboration framework for medical agents."]},
+     { repo: "https://github.com/kagnlp/CodeGenerator", extraction: "Backward Snowballing", paper: "CODESIM: Multi-Agent Code Generation and Problem Solving through Simulation-Driven Planning and Debugging", description: ["A novel multi-agent code generation framework."]},
+     { repo: "https://github.com/lllindsey0615/ComposerX", extraction: "Backward Snowballing", paper: "COMPOSERX: MULTI-AGENT SYMBOLIC MUSIC COMPOSITION WITH LLMS", description: ["An agent-based symbolic music generation framework."]},
+     { repo: "https://github.com/LYiHub/psydraw", extraction: "Backward Snowballing", paper: "PsyDraw: A Multi-Agent Multimodal System for Mental Health Screening in Left-Behind Children", description: ["A multi-agent collaborative system based on MCTS."]},
+     { repo: "https://github.com/madaan/self-refine", extraction: "Backward Snowballing", paper: "SELF-REFINE:  Iterative Refinement with Self-Feedback", description:["With Self-Refine, LLMs can generate feedback on their own outputs and iteratively improve them."]},
+     { repo: "https://github.com/Md-Ashraful-Pramanik/MapCoder", extraction: "Backward Snowballing", paper: "MapCoder: Multi-Agent Code Generation for Competitive Problem Solving", description: ["Multi-Agent Code Generation for Competitive Programming."]},
+     { repo: "https://github.com/MoreAgentsIsAllYouNeed/AgentForest", extraction: "Backward Snowballing", paper: "More Agents Is All You Need", description:["Experiments on multi-agent framework."]},
+     { repo: "https://github.com/nec-research/meddxagent", extraction: "Backward Snowballing", paper: "MEDDxAgent: A Unified Modular Agent Framework for Explainable Automatic Differential Diagnosis", description: ["A Unified Modular Agent Framework for Explainable Medical Diagnosis."]},
+     { repo: "https://github.com/NEUIR/INTERVENOR", extraction: "Backward Snowballing", paper: "INTERVENOR : Prompting the Coding Ability of Large Language Models with the Interactive Chain of Repair", description:["A system designed to emulate the interactive conversation between multiple agents."]},
+     { repo: "https://github.com/nju-websoft/PairCoder", extraction: "Backward Snowballing", paper: "A Pair Programming Framework for Code Generation via Multi-Plan Exploration and Feedback-Driven Refinement", description:["A Pair Programming Framework for Code Generation."]},
+     { repo: "https://github.com/OpenLemur/Lemur", extraction: "Backward Snowballing", paper: "Lemur: Harmonizing Natural Language and Code for Language Agents", description:["Accessible language model optimized for both natural interaction and code execution."]},
+     { repo: "https://github.com/PKU-YuanGroup/ChatLaw", extraction: "Backward Snowballing", paper: "ChatLaw: Open-Source Legal Large Language Model with Integrated External Knowledge Bases", description: ["An innovative assistant that employs a Mixture-of-Agents framework for legal reasoning."]},
+     { repo: "https://github.com/SalesforceAIResearch/CodeChain", extraction: "Backward Snowballing", paper: "CodeChain: Towards Modular Code Generation Through Chain of Self-revisions with Representative Sub-modules", description:["a novel framework for inference that elicits multi-step reasoning from agents."]},
+     { repo: "https://github.com/SecureAIAutonomyLab/AutoSafeCoder", extraction: "Backward Snowballing", paper: "AutoSafeCoder: A Multi-Agent Framework for Securing LLM Code Generation through Static Analysis and Fuzz Testing", description: ["A multi-agent framework that leverages LLM-driven agents for safe autonomy."]},
+     { repo: "https://github.com/Skytliang/Multi-Agents-Debate", extraction: "Backward Snowballing", paper: "Encouraging Divergent Thinking in Large Language Models through Multi-Agent Debate", description: ["The first work to explore Multi-Agent Debate with LLMs."]},
+     { repo: "https://github.com/togethercomputer/MoA", extraction: "Backward Snowballing", paper: "Mixture-of-Agents Enhances Large Language Model Capabilities", description:["System that leverages the collective strengths of multiple agents."]},
+     { repo: "https://github.com/yunshiuan/llm-agent-opinion-dynamics", extraction: "Backward Snowballing", paper: "Simulating Opinion Dynamics with Networks of LLM-based Agents", description:["Simulation of multiagent conversations across opinion dynamics."]},
+     { repo: "https://github.com/tsinghua-fib-lab/ACL24-EconAgent", extraction: "Forward Snowballing", paper: "EconAgent: Large Language Model-Empowered Agents for Simulating Macroeconomic Activities", description: ["A  a large language model-empowered agent with humanlike characteristics for macroeconomic simulation"]},
+     { repo: "https://github.com/pipiku915/FinMem-LLM-StockTrading", extraction: "Forward Snowballing", paper: "FinMem: A Performance-Enhanced LLM Trading Agent With Layered Memory and Character Design", description: ["A novel LLM-based agent framework devised for financial decision-making. It encompasses three core modules: Profiling, to customize the agent's characteristics; Memory, with layered message processing, to aid the agent in assimilating hierarchical financial data; and Decision-making, to convert insights gained from memories into investment decisions"]},
+     { repo: "https://github.com/gersteinlab/LocAgent", extraction: "Forward Snowballing", paper: "LocAgent: Graph-Guided LLM Agents for Code Localization", description: ["A framework that addresses code localization through graph-based representation. By parsing codebases into directed heterogeneous graphs, LOCAGENT creates a lightweight representation that captures code structures (files, classes, functions) and their dependencies (imports, invocations, inheritance), enabling LLM agents to effectively search and locate relevant entities through powerful multi-hop reasoning"]},
+     { repo: "https://github.com/mitmedialab/MDAgents", extraction: "Forward Snowballing", paper: "MDAgents: An Adaptive Collaboration of LLMs for Medical Decision-Making", description: ["Adaptive decision-making framework for LLMs that mirrors real-world MDM processes via dynamic collaboration among AI agents based on task complexity"]},
+     { repo: "https://github.com/stellalisy/MediQ", extraction: "Forward Snowballing", paper: "MediQ: Question-Asking LLMs and a Benchmark for Reliable Interactive Clinical Reasoning", description: ["interactive LLM based system that proactively ask questions to gather more information and respond reliably"]},
+     { repo: "https://github.com/qzc438/ontology-llm", extraction: "Forward Snowballing", paper: "Agent-OM: Leveraging LLM Agents for Ontology Matching", description: ["A  generic framework, namely Agent-OM (Agent for Ontology Matching), consisting of two Siamese agents for retrieval and matching, with a set of OM tools."]},
+     { repo: "https://github.com/microsoft/TaskWeaver/", extraction: "Forward Snowballing", paper: "Agent-OM: Leveraging LLM Agents for Ontology Matching", description: ["TaskWeaver is A code-first agent framework for seamlessly planning and executing data analytics tasks. This innovative framework interprets user requests through code snippets and efficiently coordinates a variety of plugins in the form of functions to execute data analytics tasks in a stateful manner. It preserves both the chat history and the code execution history, including the in-memory data"]},
+     { repo: "https://github.com/ZJU-DCDLab/Triad", extraction: "Forward Snowballing", paper: "Triad: A Framework Leveraging a Multi-Role LLM-based Agent to Solve  Knowledge Base Question Answering", description: ["A Framework Leveraging a Multi-Role LLM-based Agent to Solve Knowledge Base Question Answering"]},
+     { repo: "https://github.com/ghost-in-moss/GhostOS", extraction: "Forward Snowballing", paper: "MOSS: Enabling Code-Driven Evolution and Context Management for AI Agents", description: ["An AI Agent framework designed to replace JSON Schema  with a Turing-complete code interaction interface (Moss Protocol), becoming the core method for interaction between LLM and Agent system capabilities."]},
+     { repo: "https://github.com/skyriver-2000/TRAD-Official", extraction: "Forward Snowballing", paper: "TRAD: Enhancing LLM Agents with Step-Wise Thought Retrieval and Aligned Decision", description: [" TRAD first conducts Thought Retrieval, achieving step-level demonstration selection via thought matching, leading to more helpful demonstrations and less irrelevant input noise. Then, TRAD introduces Aligned Decision, complementing retrieved demonstration steps with their previous or subsequent steps, which enables tolerance for imperfect thought and provides a choice for balance between more context and less noise."]},
+     { repo: "https://github.com/ZhangYiqun018/agent-for-debate", extraction: "Forward Snowballing", paper: "Can LLMs Beat Humans in Debating? A Dynamic Multi-agent Framework for Competitive Debate", description: ["Agent4Debate is a dynamic multi-agent framework that leverages LLMs to achieve human-level performance in competitive debate by dynamically coordinating specialized agents to mitigate hallucinations and enhance competitiveness."]},
+     { repo: "https://github.com/yanweiyue/GDesigner", extraction: "Forward Snowballing", paper: "G-Designer: Architecting Multi-agent Communication  Topologies via Graph Neural Networks", description: ["An adaptive, efficient, and robust solution for multi-agent deployment, which dynamically designs task-aware, customized communication topologies."]},
+     { repo: "https://github.com/ai4co/reevo", extraction: "Forward Snowballing", paper: "ReEvo: Large Language Models as Hyper-Heuristics with Reflective Evolution", description: ["We introduce Language Hyper-Heuristics (LHHs), an emerging variant of Hyper-Heuristics (HHs) that leverages LLMs for heuristic generation, featuring minimal manual intervention and open-ended heuristic spaces."]},
+     { repo: "https://github.com/biagent-dev/bia", extraction: "Forward Snowballing", paper: "BioInformatics Agent (BIA): Unleashing the Power of Large Language Models to Reshape Bioinformatics Workflow", description: ["An intelligent agent leveraging Large Language Models (LLMs) technology, to facilitate autonomous bioinformatic analysis through natural language. The primary functionalities of BIA encompass extraction and processing of raw data and metadata, querying both locally deployed and public databases for information."]},
+     { repo: "https://github.com/YutongWang1216/DocMTAgent", extraction: "Forward Snowballing", paper: "DELTA: AN ONLINE DOCUMENT-LEVEL TRANSLATION AGENT BASED ON MULTI-LEVEL MEMORY", description: ["a Document-levEL Translation Agent designed to maintain translation consistency and accuracy when processing entire documents"]},
+     { repo: "https://github.com/agentuniverse-ai/agentUniverse", extraction: "Forward Snowballing", paper: "PEER: Expertizing Domain-Specific Tasks with a Multi-Agent Framework and Tuning Methods", description: ["A LLM multi-agent framework that allows developers to easily build multi-agent applications."]},
+     { repo: "https://github.com/xingyaoww/code-act", extraction: "Forward Snowballing", paper: "Executable Code Actions Elicit Better LLM Agents", description: ["CodeAct can execute code actions and dynamically revise prior actions or emit new actions upon new observations (e.g., code execution results) through multi-turn interactions"]},
+     { repo: "https://github.com/Wangjw6/LLMob/", extraction: "Forward Snowballing", paper: "Large Language Models as Urban Residents: An LLM Agent Framework for Personal Mobility Generation", description: ["LLMob is an intuitive framework that builds reasoning logic for LLMs in the context of personal activity trajectory generation."]},
+     { repo: "https://github.com/DanielSun94/conversational_diagnosis", extraction: "Forward Snowballing", paper: "Conversational Disease Diagnosis via External Planner-Controlled Large Language Models", description: ["An LLM-based diagnostic system that enhances planning capabilities by emulating doctors. The system involves two external planners to handle planning tasks."]},
+     { repo: "https://github.com/thomas-sepanosian/Multi-Agent-Retirement-Planning", extraction: "Forward Snowballing", paper: "Scaling AI adoption in finance: modelling  framework and implementation study", description: ["A system utilizing multi-agent AI technologies for retirement planning application"]},
+     { repo: "https://github.com/SAIC-MONTREAL/SAGE", extraction: "Forward Snowballing", paper: "AIoT Smart Home via Autonomous LLM Agents", description: [" The system is using a scheme in which a user request triggers an LLM-controlled sequence of discrete actions. These actions can be used to retrieve information, interact with the user, or manipulate device states. SAGE controls this process through a dynamically constructed tree of LLM prompts, which help it decide which action to take next, whether an action was successful, and when to terminate the process."]},
+     { repo: "https://github.com/Liu-Hy/GenoMAS", extraction: "Forward Snowballing", paper: "Toward a Team of AI-made Scientists for Scientific Discovery  from Gene Expression Data", description: ["A minimalist multi-agent framework for rubost automation of scientific analysis workflows, such as gene expression analysis."]},
+     { repo: "https://github.com/3DAgentWorld/LLM-Game-Agent", extraction: "Forward Snowballing", paper: "LLM-Based Agent Society Investigation: Collaboration and Confrontation  in Avalon Gameplay", description: ["A multi-agent framework where each agent is an LLM with a designated role (e.g., good or evil player in Avalon) and engages in communication, decision-making, strategy, trust building, deception, and cooperation in pursuit of its objectives."]},
+     { repo: "https://github.com/THUDM/AutoWebGLM", extraction: "Forward Snowballing", paper: "AutoWebGLM: A Large Language Model-based Web Navigating Agent", description: ["A system aimed at building a more efficient language model-driven automated web navigation agent."]},
+     { repo: "https://github.com/SakanaAI/CycleQD", extraction: "Forward Snowballing", paper: "AGENT SKILL ACQUISITION FOR LARGE LANGUAGE  MODELS VIA CYCLEQD", description: ["A novel approach that leverages the Quality Diversity framework through a cyclic adaptation of the algorithm, along with a model merging based crossover and an SVD-based mutation. In CycleQD, each task’s performance metric is alternated as the quality measure while the others serve as the behavioral characteristics."]},
+     { repo: "https://github.com/Jometeorie/KnowledgeSpread", extraction: "Forward Snowballing", paper: "Flooding Spread of Manipulated Knowledge in  LLM-Based Multi-Agent Communities", description: ["A simulated multi-agent community where each agent is an independent LLM with a role and knowledge base. A two-stage attack that biases one agent to generate and believe false information is introduced and shows that this manipulated knowledge can spread autonomously through agent interactions."]},
+     { repo: "https://github.com/alipay/mobile-agent", extraction: "Forward Snowballing", paper: "MOBILEAGENT: ENHANCING MOBILE CONTROL VIA  HUMAN-MACHINE INTERACTION AND SOP INTEGRATION", description: ["A framework presents a method for enabling intelligent automation of mobile device tasks using an AI agent that combines human-machine interaction, structured planning, and integration of standard operating procedures (SOPs)."]},
+     { repo: "https://github.com/ruc-datalab/AutoPrep", extraction: "Forward Snowballing", paper: "AutoPrep: Natural Language Question-Aware Data Preparation with a Multi-Agent Framework", description: ["A large language model (LLM)-based multi-agent framework that leverages the strengths of multiple agents, each specialized in a certain type of data prep, ensuring more accurate and contextually relevant responses. "]},
+     { repo: "https://github.com/ServiceNow/TapeAgents", extraction: "Forward Snowballing", paper: "TapeAgents: a Holistic Framework for Agent Development  and Optimization", description: ["A framework that leverages a structured, replayable log (Tape) of the agent session to facilitate all stages of the LLM Agent development lifecycle. In TapeAgents, the agent reasons by processing the tape and the LLM output to produce new thoughts, actions, control flow steps and append them to the tape. The environment then reacts to the agent’s actions by likewise appending observation steps to the tape."]},
+     { repo: "https://github.com/WZH-NLP/WWW25-CMAS", extraction: "Forward Snowballing", paper: "A Cooperative Multi-Agent Framework for Zero-Shot Named Entity Recognition", description: ["A cooperative multi-agent system, a novel framework for zero-shot NER that uses the collective intelligence of multiple agents to address challenges. CMAS has four main agents: (i) a self-annotator, (ii) a type-related feature (TRF) extractor, (iii) a demonstration discriminator, and (iv) an overall predictor. "]},
+     { repo: "https://github.com/madaan/self-refine", extraction: "Forward Snowballing", paper: "A Survey on Code Generation with LLM-based Agents", description: ["a framework that uses a single large language model (LLM) to improve its own outputs through iterative feedback and refinement."]},
+     { repo: "https://github.com/Applied-Machine-Learning-Lab/ABAgent", extraction: "Forward Snowballing", paper: "Exploring Recommender System Evaluation: A Multi-Modal User Agent Framework for A/B Testing", description: ["Multimodal User Agent designed to simulate the entire human perception process and interactive behavior trajectories for A/B testing."]},
+     { repo: "https://github.com/haoyuwang99/AgentSpec", extraction: "Forward Snowballing", paper: "AgentSpec: Customizable runtime enforcement for safe and reliable LLM agents", description: ["A framework for enforcing safety in Large Language Model (LLM) agents via user-defined rules. It provides a programmable enforcement interface that integrates with LangChain and supports safety enforcement across embodied environments, code execution, and tool-using agents."]},
+     { repo: "https://github.com/13RENDA/Mcrafter_LLM_Agent", extraction: "Forward Snowballing", paper: "LLM-Powered Decentralized Generative Agents with Adaptive Hierarchical Knowledge Graph for Cooperative Planning", description: ["A multi-agent simulation system built on the Crafter environment, featuring AI agents with memory systems, knowledge graphs, and advanced decision-making capabilities."]},
+     { repo: "https://github.com/Applied-Machine-Learning-Lab/AMAR", extraction: "Forward Snowballing", paper: "Harnessing Large Language Models for Knowledge Graph Question Answering via Adaptive Multi-Aspect Retrieval-Augmentation", description: ["An Adaptive Multi-Aspect Retrieval-augmented over KGs framework. This method retrieves knowledge including entities, relations, and subgraphs, and converts each piece of retrieved text into prompt embeddings. "]},
+     { repo: "https://github.com/TangciuYueng/AMemGuard", extraction: "Forward Snowballing", paper: "A-MEMGUARD: A PROACTIVE DEFENSE FRAMEWORK  FOR LLM-BASED AGENT MEMORY", description: ["A-MemGuard (Agent-Memory Guard), the first proactive defense framework for LLM agent memory. The core idea of our work is the insight that memory itself must become both self-checking and self-correcting. Without modifying the agent’s core architecture, A-MemGuard combines two mechanisms: consensus-based validation,  and dual memory structure."]},  
+     { repo: "https://github.com/aiming-lab/SynthAgent", extraction: "Forward Snowballing", paper: "Adapting Web Agents with Synthetic Supervision", description: ["A framework for adapting web agents to any new environments using synthetic supervision. It efficiently synthesizes diverse user tasks by categorized exploration. Then, it refines these tasks during trajectory collection to mitigate hallucinations."]},
+     { repo: "https://github.com/sony/talkhier", extraction: "Forward Snowballing", paper: "Talk Structurally, Act Hierarchically: A Collaborative Framework for LLM Multi-Agent Systems", description: ["A models hierarchical agent communication to efficiently solve complex tasks by leveraging structured conversations. It introduces a novel framework that establishes a structured communication protocol for context-rich exchanges and a hierarchical refinement system to address issues such as incorrect outputs, falsehoods, and biases."]},
+     { repo: "https://github.com/wbbeyourself/MAC-SQL", extraction: "Forward Snowballing", paper: "MAC-SQL: A Multi-Agent Collaborative Framework for Text-to-SQL", description: ["A multi-agent collaborative Text-to-SQL framework MAC-SQL, which comprises three agents: the Selector, the Decomposer, and the Refiner."]},
+     { repo: "https://github.com/NYU-LLM-CTF/nyuctf_agents", extraction: "Forward Snowballing", paper: "D-CIPHER: Dynamic Collaborative Intelligent  Multi-Agent System with Planner and  Heterogeneous Executors for Offensive Security", description: ["The LLM agents for solving CTF challenges developed for the NYU CTF Bench."]},
+     { repo: "https://github.com/SongyuanSui/ChainofQuery", extraction: "Forward Snowballing", paper: "CHAIN-OF-QUERY: Unleashing the Power of LLMs in SQL-Aided Table Understanding via Multi-Agent Collaboration", description: ["A a novel multi-agent framework for SQL-aided table understanding."]},
+     { repo: "https://github.com/SamuelSchmidgall/AgentLaboratory", extraction: "Forward Snowballing", paper: "Agent Laboratory: Using LLM Agents as Research Assistants", description: ["An end-to-end autonomous research workflow meant to assist the user as the human researcher toward implementing your research ideas."]},
+     { repo: "https://github.com/microsoft/tinytroupe", extraction: "Forward Snowballing", paper: "TinyTroupe: An LLM-powered Multiagent Persona Simulation Toolkit", description: ["LLM-powered multiagent persona simulation for imagination enhancement and business insights."]},
+     { repo: "https://github.com/gangiswag/infogent", extraction: "Forward Snowballing", paper: "INFOGENT: An Agent-Based Framework for Web Information Aggregation", description: ["A modular framework designed for web information aggregation. Unlike traditional web agents focused on single-goal navigation, INFOGENT’s unique architecture facilitates complex multi-source data gathering by leveraging autonomous components specialized in navigation, extraction, and aggregation."]},
+     { repo: "https://github.com/bigdata-ustc/Agent4Edu", extraction: "Forward Snowballing", paper: "Agent4Edu: Generating Learner Response Data by Generative Agents for Intelligent Education Systems", description: ["A novel personalized learning simulator leveraging recent advancements in human intelligence through large language models (LLMs). Agent4Edu features LLM-powered generative agents equipped with learner profile, memory, and action modules tailored to personalized learning algorithms."]},
+     { repo: "https://github.com/sentient-agi/OpenDeepSearch", extraction: "Forward Snowballing", paper: "Open Deep Search: Democratizing Search with Open-source Reasoning Agents", description: ["OpenDeepSearch is a lightweight yet powerful search tool designed for seamless integration with AI agents. It enables deep web search and retrieval, optimized for use with Hugging Face's SmolAgents ecosystem."]},
+     { repo: "https://github.com/Ch3nYe/AutoCompiler", extraction: "Forward Snowballing", paper: "CompileAgent: Automated Real-World Repo-Level Compilation with  Tool-Integrated LLM-based Agent System", description: ["A LLM-driven framework designed to automatically compile projects directly from their source code repositories."]},
+     { repo: "https://github.com/zjunlp/AutoMind", extraction: "Forward Snowballing", paper: "AUTOMIND: Adaptive Knowledgeable Agent for Automated Data Science", description: ["An advanced LLM agent framework that automates end-to-end machine learning pipelines by dynamically integrating domain expertise, strategic solution exploration, and adaptive code generation. "]},
+     { repo: "https://github.com/RUC-NLPIR/DeepAgent", extraction: "Forward Snowballing", paper: "DeepAgent: A General Reasoning Agent with Scalable Toolsets", description: ["A General Reasoning Agent with Scalable Toolsets"]},
+     { repo: "https://github.com/sopajeta/RaR", extraction: "Forward Snowballing", paper: "Multi-step retrieval and reasoning improves  radiology question answering with large language  models", description: ["Radiology Retrieval and Reasoning (RaR) is an open-source, multi-agent retrieval-augmented generation (RAG) pipeline designed for evidence-grounded radiology question answering."]},
+     { repo: "https://github.com/thangylvp/MA-RAG", extraction: "Forward Snowballing", paper: "MA-RAG: MULTI-AGENT RETRIEVAL-AUGMENTED  GENERATION VIA COLLABORATIVE CHAIN-OFTHOUGHT REASONING", description: [" A Multi-Agent framework for Retrieval-Augmented Generation (RAG) that addresses the inherent ambiguities and reasoning challenges in complex information-seeking tasks. Unlike conventional RAG methods that rely on end-to-end fine-tuning or isolated component enhancements, MA-RAG orchestrates a collaborative set of specialized AI agents."]},
+     { repo: "https://github.com/Terry-cyx/MetaOpenFOAM", extraction: "Forward Snowballing", paper: "MetaOpenFOAM 2.0: Large Language Model Driven Chain of Thought for Automating CFD Simulation and Post-Processing", description: ["A system which leverages Chain of Thought (COT) decomposition and iterative verification to enhance accessibility for non-expert users through natural language inputs."]},
+     { repo: "https: //github.com/Roihn/EinsteinPuzzles", extraction: "Forward Snowballing", paper: "Communication and Verification in LLM Agents towards Collaboration under Information Asymmetry", description: [" LLM agents are tested  in task collaboration, particularly under the condition of information asymmetry, where agents have disparities in their knowledge and skills and need to work together to complete a shared task"]},
+     { repo: "https://github.com/JOHNNY-fans/RankNorm", extraction: "Forward Snowballing", paper: "An LLM-based Framework for Biomedical Terminology Normalization in Social Media via Multi-Agent Collaboration", description: ["A LLM-base Multi-agent Collaboration Framework for Terminology Normalization Task in Social Media following 'Recall and Re-rank' framwork."]},
+     { repo: "https://github.com/microsoft/semantic-kernel", extraction: "Forward Snowballing", paper: "Agentic Services Computing", description: ["A model-agnostic SDK that empowers developers to build, orchestrate, and deploy AI agents and multi-agent systems."]},
+     { repo: "https://github.com/DEFENSE-SEU/Code2MCP", extraction: "Forward Snowballing", paper: "Transforming Code Repositories into MCP Services https://arxiv.org/pdf/2509.05941", description: ["An automated workflow system that transforms existing code repositories into MCP (Model Context Protocol) services."]},
+     { repo: "https://github.com/FudanDISC/PIORS", extraction: "Forward Snowballing", paper: "SFMSS: Service Flow aware Medical Scenario Simulation for  Conversational Data Generation", description: ["This system integrates an LLM-based reception nurse and a collaboration between LLM and hospital information system (HIS) into real outpatient reception setting, aiming to deliver personalized, high-quality, and efficient reception services."]},
+     { repo: "https://github.com/amair-lab/PriM", extraction: "Forward Snowballing", paper: "PRIM: PRINCIPLE-INSPIRED MATERIAL DISCOVERY  THROUGH MULTI-AGENT COLLABORATION", description: ["The PriM framework bridges the gap between traditional data-driven methods and principled scientific reasoning."]},
+     { repo: "https://github.com/tsinghua-fib-lab/Social-Bots-Meet-LLM", extraction: "Forward Snowballing", paper: "Social Bots Meet Large Language Model: Political Bias and Social Learning Inspired Mitigation Strategies", description: ["Assessment of political bias in LLM-driven social agents, by examining how it emerges as these agents self-reflect, communicate, and understand others during social interactions."]},
+     { repo: "https://github.com/pslab-unibo/experiment-2025-ECAI-generative-bdi-agents", extraction: "Forward Snowballing", paper: "Exploiting GenAI for Plan Generation in BDI Agents", description: ["Investigation of the integration of GenAI-based plan generation into AgentSpeak(L) agents, and analysis of the implications of transferring knowledge between the LLM and the BDI agent, for the sake of dynamic plan generation."]},
+     { repo: "https://github.com/LiuLab-Bioelectronics-Harvard/SpikeAgent", extraction: "Forward Snowballing", paper: "Spike sorting AI agent", description: ["SpikeAgent is a multimodal LLM-based AI agent that automates and standardizes the spike sorting pipeline"]},
+     { repo: "https://github.com/karin0018/GenAL", extraction: "Forward Snowballing", paper: "GenAL: Generative Agent for Adaptive Learning", description: ["A system that integrated Generative Agent for Adaptive Learning (GenAL), which integrates educational tools with LLMs' semantic understanding to enable effective and generalizable learning path recommendations across diverse data distributions."]},
+     { repo: "https://github.com/JimmyLin-afk/SmartAuditFlow", extraction: "Forward Snowballing", paper: "SmartAuditFlow: A Dynamic Plan-Execute Framework for Advanced Smart Contract Security Analysis", description: ["An AI-powered framework for automated smart contract security auditing. It combines Large Language Models (LLMs) with dynamic workflow orchestration to detect vulnerabilities through adaptive planning, iterative refinement, and integration with static analyzers."]},
+     { repo: "Evaluating Goal Drift in Language Model Agents", extraction: "Forward Snowballing", paper: "https://github.com/RaunoArike/goal-drift-evals", description: ["A novel approach to analyzing goal drift in LM agents."]},
+     { repo: "ShortageSim: Simulating Drug Shortages under Information Asymmetry", extraction: "Forward Snowballing", paper: "https://github.com/Lemutisme/ShortageSim", description: ["a comprehensive multi-agent simulation framework that models pharmaceutical supply chain dynamics during drug shortage events."]},
+     { repo: "Tutorial on Large Language Model-Enhanced  Reinforcement Learning for Wireless Networks", extraction: "Forward Snowballing", paper: "https://github.com/ZJLAB-AMMI/LLM4Teach", description: ["LLM4Teach, a policy distillation approach for teaching reinforcement learning agents with Large Language Model"]},
+     { repo: "https://github.com/wanxingai/LightAgent", extraction: "Forward Snowballing", paper: "LightAgent: Production-level Open-source Agentic AI Framework", description: ["Lightweight AI agent framework with memory, tools & tree-of-thought. Supports multi-agent collaboration, self-learning, and major LLMs (OpenAI/DeepSeek/Qwen). Open-source with MCP/SSE protocol integration."]},
+     { repo: "https://github.com/MobileLLM/DroidBot-GPT", extraction: "Forward Snowballing", paper: "Large multimodal agents: a survey", description: ["DroidBot-GPT is an easy-to-use UI agent framework for Android. It can control a smartphone app automatically based on a natural language task description."]},
+     { repo: "https://github.com/lupantech/chameleon-llm", extraction: "Forward Snowballing", paper: "Large multimodal agents: a survey", description: ["Chameleon is a plug-and-play compositional reasoning framework that augments LLMs with various types of tools. Chameleon synthesizes programs to compose various tools, including LLM models, off-the-shelf vision models, web search engines, Python functions, and rule-based modules tailored to user interests. Built on top of an LLM as a natural language planner, Chameleon infers the appropriate sequence of tools to compose and execute in order to generate a final response."]},
+     { repo: "https://github.com/HongChuanYang/Training-by-LLM-Enhanced-Memory-Retrieval-for-Generative-Agents-via-ACAN", extraction: "Forward Snowballing", paper: "Enhancing memory retrieval in generative agents through LLM-trained cross attention networks", description: ["This project builds upon the concept of generative agents in a multi-agent, multi-location simulated environment."]},  
+     { repo: "https://github.com/zjunlp/SynWorld", extraction: "Forward Snowballing", paper: "SynWorld: Virtual Scenario Synthesis for Agentic Action Knowledge Refinement", description: ["a framework that allows agents to synthesize possible scenarios with multi-step action invocation within the action space and perform Monte Carlo Tree Search (MCTS) exploration to effectively refine their action knowledge in the current environment."]},
+     { repo: "https://github.com/zealscott/AutoProfiler", extraction: "Forward Snowballing", paper: "Automated Profile Inference with Language Model Agents", description: ["a novel multi-agent system that performs automated profile inference using Large Language Models (LLMs)."]},
+     { repo: "https://github.com/SalesforceAIResearch/xLAM", extraction: "Forward Snowballing", paper: "Advancing SLM Tool-Use Capability using  Reinforcement Learning", description: ["A Family of Large Action Models to Empower AI Agent Systems"]},
+     { repo: "https://github.com/ARCLab-MIT/kspdg", extraction: "Forward Snowballing", paper: "Large Language Models as Autonomous Spacecraft Operators in Kerbal Space Program", description: ["a pure LLM-based solution for the Kerbal Space Program Differential Games (KSPDG) challenge, a public software design competition where participants create autonomous agents for maneuvering satellites involved in non-cooperative space operations, running on the KSP game engine."]},
+     { repo: "https://github.com/Coldmist-Lu/AgentExit", extraction: "Forward Snowballing", paper: "Runaway is Ashamed, But Helpful: On the Early-Exit Behavior of Large Language Model-based Agents in Embodied Environments", description: ["a framework for large language model (LLM)-based agents to early exit when necessary."]},
+     { repo: "https://github.com/aiming-lab/SynthAgent", extraction: "Forward Snowballing", paper: "Adapting Web Agents with Synthetic Supervision", description: ["SynthAgent is a framework for adapting web agents to any new environments using synthetic supervision. It efficiently synthesizes diverse user tasks by categorized exploration. Then, it refines these tasks during trajectory collection to mitigate hallucinations."]},  
+     { repo: "https://github.com/holmeswww/AgentKit", extraction: "Forward Snowballing", paper: "Graphs Meet AI Agents: Taxonomy, Progress, and  Future Opportunities", description: ["An intuitive LLM prompting framework for multifunctional agents, by explicitly constructing a complex 'thought process' from simple natural language prompts."]},
+     { repo: "https://github.com/WxxShirley/GNN4TaskPlan", extraction: "Forward Snowballing", paper: "Graphs Meet AI Agents: Taxonomy, Progress, and  Future Opportunities", description: ["A system utilizing GNN for sub-task retrieval, available in both training-free and training-based variants."]},
+     { repo: "https://github.com/cnsdqd-dyb/VillagerAgent-Minecraft-multiagent-framework", extraction: "Forward Snowballing", paper: "Graphs Meet AI Agents: Taxonomy, Progress, and  Future Opportunities", description: ["A Graph based Minecraft multi agents framework"]},
+     { repo: "https://github.com/tegg89/magnet", extraction: "Forward Snowballing", paper: "Graphs Meet AI Agents: Taxonomy, Progress, and  Future Opportunities", description: ["The goal of this project is controlling multi-agents using reinforcement learning and graph neural networks. Multi-agent scenarios are usually sparsely rewarded."]},
+     { repo: "https://github.com/gauss5930/LLM-Agora", extraction: "Forward Snowballing", paper: "From Semantic Web and MAS to Agentic AI: A Unified Narrative of the Web of Agents", description: ["The LLM Agora aims to improve the quality of open-source LMs' responses through debate & revision introduced in Improving Factuality and Reasoning in Language Models through Multiagent Debate"]},
+     { repo: "https://github.com/composable-models/llm_multiagent_debate", extraction: "Forward Snowballing", paper: "From Semantic Web and MAS to Agentic AI: A Unified Narrative of the Web of Agents", description: ["A complementary approach to improve language responses where multiple language model instances propose and debate their individual responses and reasoning processes over multiple rounds to arrive at a common final answer."]},
+     { repo: "https://github.com/mobilegptsys/MobileGPT", extraction: "Forward Snowballing", paper: "Towards Pervasive Distributed Agentic Generative AI - A State of The Art", description: ["MobileGPT emulates the cognitive process of humans interacting with a mobile app—explore, select, derive, and recall. This approach allows for a more precise and efficient learning of a task’s procedure by breaking it down into smaller, modular sub-tasks that can be re-used, re-arranged, and adapted for various objectives"]},
+     { repo: "https://github.com/plurai-ai/intellagent", extraction: "Forward Snowballing", paper: "Towards Pervasive Distributed Agentic Generative AI - A State of The Art", description: ["A framework for comprehensive diagnosis and optimization of agents using simulated, realistic synthetic interactions"]},
+     { repo: "https://github.com/RUC-NLPIR/Search-o1", extraction: "Forward Snowballing", paper: "Towards Pervasive Distributed Agentic Generative AI - A State of The Art", description: ["A framework that augments LRMs with an agentic Retrieval-Augmented Generation (RAG) mechanism and a Reason-in-Documents module for deep analysis and integration of retrieved documents into the reasoning chain."]},  
+     { repo: "https://github.com/co-evolve-lab/magis", extraction: "Forward Snowballing", paper: "Towards Pervasive Distributed Agentic Generative AI - A State of The Art", description: ["LLM-Based Multi-Agent Framework for GitHub Issue Resolution."]},
+     { repo: "https://github.com/zou-group/avatar", extraction: "Forward Snowballing", paper: "Towards Pervasive Distributed Agentic Generative AI - A State of The Art", description: ["AvaTaR is a novel and automatic framework that optimizes an LLM agent to effectively use the provided tools and improve its performance on a given task/domain."]},
+     { repo: "https://github.com/google-deepmind/concordia", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["Concordia is a library for constructing and running generative agent-based models that simulate interactions among entities in grounded physical, social, or digital environments. It uses an interaction pattern inspired by tabletop role-playing games"]},
+     { repo: "https://github.com/aiwaves-cn/agents", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["An Open-source Framework for Data-centric, Self-evolving Autonomous Language Agents"]},
+     { repo: "https://github.com/MoreAgentsIsAllYouNeed/AgentForest", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["Our framework supports a range of Large Language Models, including the GPT series hosted on Azure and various open-source LLMs."]},
+     { repo: "https://github.com/SALT-NLP/DyLAN", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["An LLM-agent Collaboration Framework with Agent Team Optimization"]},
+     { repo: "https://github.com/ybgdgh/Co-NavGPT2", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["A  new framework to explore and search for the target in unknown environment based on Vision Language Model. "]},
+     { repo: "https://github.com/MandiZhao/robot-collab", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["A novel approach to multi-robot collaboration that harnesses the power of pre-trained large language models (LLMs) for both high-level communication and low-level path planning."]},
+     { repo: "https://github.com/romanlee6/multi_LLM_comm", extraction: "Forward Snowballing", paper: "Evaluating and Regulating Agentic AI: A Study of Benchmarks, Metrics, and Regulation", description: ["This study evaluates LLM-based agents in a multi-agent cooperative text game with Theory of Mind (ToM) inference tasks, comparing their performance with Multi-Agent Reinforcement Learning (MARL) and planning-based baselines."]},  
+     { repo: "https://github.com/zhrli324/ARGUS", extraction: "Forward Snowballing", paper: "Goal-Aware Identification and Rectification of Misinformation in Multi-Agent Systems", description: ["A a two-stage, training-free defense framework leveraging goal-aware reasoning for precise misinformation rectification within information flows. "]},
+     { repo: "https://github.com/purseclab/liteagent", extraction: "Forward Snowballing", paper: "Investigating the Impact of Dark Patterns on LLM-Based Web Agents", description: ["LiteAgent works for web agents implemented as a chrome extension, CLI, or SDK."]},
+     { repo: "https://github.com/AutoLab-SAI-SJTU/AutoPage", extraction: "Forward Snowballing", paper: "Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1", description: ["This is the official implementation for Human-Agent Collaborative Paper-to-Page Crafting for Under $0.1."]},
+     { repo: "https://github.com/google/oss-fuzz-gen", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.11532", description: ["LLM powered fuzzing via OSS-Fuzz."] },
+     { repo: "https://github.com/Wenyueh/game_theory", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.05990", description: ["How to create rational LLM-based agents? Using game-theoretic workflows!"] },
+     { repo: "https://github.com/AI4Finance-Foundation/FinRobot", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.04788", description: ["An Open-Source AI Agent Platform for Financial Analysis using LLMs"] },
+     { repo: "https://github.com/adobe-research/dynasaur", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.01747", description: ["DynaSaur is a dynamic LLM-based agent framework that uses a programming language as a universal representation of its actions."] },
+     { repo: "https://github.com/LingmaTongyi/Lingma-SWE-GPT", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.00622", description: ["An open-source large language model specifically designed for software improvement."] },
+     { repo: "https://github.com/Multi-Agent-LLMs/mallm", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.22932", description: [""] },
+     { repo: "https://github.com/awd1779/Guide-LLM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.20666", description: [""] },
+     { repo: "https://github.com/tsinghua-fib-lab/TrajAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.20445", description: [""] },
+     { repo: "https://github.com/multimodal-art-projection/AutoKaggle", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.20424", description: [""] },
+     { repo: "https://github.com/MaCTG2025/MaCTG", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.19245", description: [""] },
+     { repo: "https://github.com/uclaml/COPS", extraction: "arxiv", paper: "https://arxiv.org/abs/2410.16670", description: [""] },
+     { repo: "https://github.com/thunlp/ProactiveAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.12361", description: [""] },
+     { repo: "https://github.com/metauto-ai/agent-as-a-judge", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.10934", description: [""] },
+     { repo: "https://github.com/Ji-Cather/GraphAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.09824", description: [""] },
+     { repo: "https://github.com/InternScience/Virtual-Scientists", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.09403", description: [""] },
+     { repo: "https://github.com/thunlp/Optima", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.08115", description: [""] },
+     { repo: "https://github.com/tsinghua-fib-lab/AgentSquare", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.06153", description: [""] },
+     { repo: "https://github.com/Harry67Hu/CORY", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.06101", description: [""] },
+     { repo: "https://github.com/Reason-Wang/ToolGen", extraction: "arxiv", paper: "https://arxiv.org/abs/2410.03439", description: [""] },
+     { repo: "https://github.com/yanweiyue/AgentPrune", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.02506", description: [""] },
+     { repo: "https://github.com/lalaliat/Agent-Oriented-Planning", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.02189", description: [""] },
+     { repo: "https://github.com/smojha/collusive-llm-agents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2410.00031", description: [""] },
+     { repo: "https://github.com/YuchenXia/LLM4IAS", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.18009", description: [""] },
+     { repo: "https://github.com/ameliawong1996/From_News_to_Forecast", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.17515", description: [""] },
+     { repo: "https://github.com/FSoft-AI4Code/HyperAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.16299", description: [""] },
+     { repo: "https://github.com/yuqian2003/MAS4POI", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.13700", description: [""] },
+     { repo: "https://github.com/veerbeek/agents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.07286", description: [""] },
+     { repo: "https://github.com/zhangr2021/Multiagent_poetry", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.03659", description: [""] },
+     { repo: "https://github.com/GPT-Laboratory/multiagent-prioritization", extraction: "arxiv", paper: "https://arxiv.org/pdf/2409.02822", description: [""] },
+     { repo: "https://github.com/chanchimin/AgentMonitor", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.14972", description: [""] },
+     { repo: "https://github.com/relic-yuexi/AgentCourt", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.08089", description: [""] },
+     { repo: "https://github.com/SakanaAI/AI-Scientist", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.06292", description: [""] },
+     { repo: "https://github.com/NEUIR/COAST", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.05006", description: [""] },
+     { repo: "https://github.com/Aaron617/AgentGen", extraction: "arxiv", paper: "https://arxiv.org/pdf/2408.00764", description: [""] },
+     { repo: "https://github.com/MingyuJ666/Stockagent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.18957", description: [""] },
+     { repo: "https://github.com/modelscope/agentscope", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.17789", description: [""] },
+     { repo: "https://github.com/agiresearch/AutoFlow", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.12821", description: [""] },
+     { repo: "https://github.com/UKPLab/emnlp2025-inferact", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.11843", description: [""] },
+     { repo: "https://github.com/Ag2S1/Sibyl-System", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.10718", description: [""] },
+     { repo: "https://github.com/lamm-mit/AtomAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.10022", description: [""] },
+     { repo: "https://github.com/alipay/agentUniverse", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.06985", description: [""] },
+     { repo: "https://github.com/Wangyixinxin/MMedAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2407.02483", description: [""] },
+     { repo: "https://github.com/leolee99/LD-Agent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2406.05925", description: [""] },
+     { repo: "https://github.com/WooooDyy/AgentGym", extraction: "arxiv", paper: "https://arxiv.org/pdf/2406.04151", description: [""] },
+     { repo: "https://github.com/YuchenXia/LLMDrivenSimulation", extraction: "arxiv", paper: "https://arxiv.org/pdf/2405.18092", description: [""] },
+     { repo: "https://github.com/snap-stanford/BioDiscoveryAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2405.17631", description: [""] },
+     { repo: "https://github.com/AI4Finance-Foundation/FinRobot", extraction: "arxiv", paper: "https://arxiv.org/pdf/2411.04788", description: [""] },
+     { repo: "https://github.com/agiresearch/CoRE", extraction: "arxiv", paper: "https://arxiv.org/pdf/2405.06907", description: [""] },
+     { repo: "https://github.com/FreedomIntelligence/Smurfs", extraction: "arxiv", paper: "https://arxiv.org/pdf/2405.05955", description: [""] },
+     { repo: "https://github.com/pnnl/cactus", extraction: "arxiv", paper: "https://arxiv.org/pdf/2405.00972", description: [""] },
+     { repo: "https://github.com/alickzhu/PLAYER", extraction: "arxiv", paper: "https://arxiv.org/pdf/2404.17662", description: [""] },
+     { repo: "https://github.com/RickyZang/GAI-agent-satellite", extraction: "arxiv", paper: "https://arxiv.org/pdf/2404.09134", description: [""] },
+     { repo: "https://github.com/cocacola-lab/MineLand", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.19267", description: [""] },
+     { repo: "https://github.com/agiresearch/AIOS", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.16971", description: [""] },
+     { repo: "https://github.com/tobeatraceur/Organized-LLM-Agents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.12482", description: [""] },
+     { repo: "https://github.com/carlosXcruzCode/Compet_Colab_SMA_LLM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.07769", description: [""] },
+     { repo: "https://github.com/llm-platform-security/SecGPT", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.04960", description: [""] },
+     { repo: "https://github.com/XHMY/AutoDefense", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.04783", description: [""] },
+     { repo: "https://github.com/zjunlp/KnowAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2403.03101", description: [""] },
+     { repo: "https://github.com/guosyjlu/DS-Agent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.17453", description: [""] },
+     { repo: "https://github.com/XueyangFeng/ReHAC", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.12914", description: [""] },
+    { repo: "https://github.com/yxwang8775/TDAG", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.10178", description: [""] },
+    { repo: "https://github.com/pygongnlp/CoSearchAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.06360", description: [""] },
+    { repo: "https://github.com/lamm-mit/ProtAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.04268", description: [""] },
+    { repo: "https://github.com/boluoweifenda/werewolf", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.02330", description: [""] },
+    { repo: "https://github.com/agiresearch/TrustAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.01586", description: [""] },
+    { repo: "https://github.com/GPT-Laboratory/CodePori", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.01411", description: [""] },
+    { repo: "https://github.com/agiresearch/Formal-LLM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2402.00798", description: [""] },
+    { repo: "https://github.com/AI4Good24/PsySafe", extraction: "arxiv", paper: "https://arxiv.org/pdf/2401.11880", description: [""] },
+    { repo: "https://github.com/jprivera44/EscalAItion", extraction: "arxiv", paper: "https://arxiv.org/pdf/2401.03408", description: [""] },
+    { repo: "https://github.com/OpenBMB/OpenAct", extraction: "arxiv", paper: "https://arxiv.org/pdf/2312.17294", description: [""] },
+    { repo: "https://github.com/AI4ChemS/Eunomia", extraction: "arxiv", paper: "https://arxiv.org/pdf/2312.11690", description: [""] },
+    { repo: "https://github.com/KwaiKEG/KwaiAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2312.04889", description: [""] },
+    { repo: "https://github.com/PKU-RL/Creative-Agents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2312.02519", description: [""] },
+    { repo: "https://github.com/agiresearch/WarAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.17227", description: [""] },
+    { repo: "https://github.com/Golden-Arc/LLM_wetlab_equipment_control", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.10776", description: [""] },
+    { repo: "https://github.com/gao-xiao-bai/StrategyLLM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.08803", description: [""] },
+    { repo: "https://github.com/lamm-mit/MechAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.08166", description: [""] },
+    { repo: "https://github.com/allenai/lumos", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.05657", description: [""] },
+    { repo: "https://github.com/microsoft/Alympics", extraction: "arxiv", paper: "https://arxiv.org/pdf/2311.03220", description: [""] },
+    { repo: "https://github.com/Skytliang/SpyGame", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.20499", description: [""] },
+    { repo: "https://github.com/WindyLab/ConsensusLLM-code", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.20151", description: [""] },
+    { repo: "https://github.com/microsoft/competeai", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.17512", description: [""] },
+    { repo: "https://github.com/3DAgentWorld/LLM-Game-Agent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.14985", description: [""] },
+    { repo: "https://github.com/microsoft/muzic", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.11954", description: [""] },
+    { repo: "https://github.com/yiren-liu/coquest", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.06155", description: [""] },
+    { repo: "https://github.com/teshnizi/OptiMUS", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.06116", description: [""] },
+    { repo: "https://github.com/IBM/SALMON", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.05910", description: [""] },
+    { repo: "https://github.com/samholt/L2MAC", extraction: "arxiv", paper: "https://arxiv.org/pdf/2310.02003", description: [""] },
+    { repo: "https://github.com/mindagent/mindagent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2309.09971", description: [""] },
+    { repo: "https://github.com/microsoft/RecAI", extraction: "arxiv", paper: "https://arxiv.org/pdf/2308.16505", description: [""] },
+    { repo: "https://github.com/aogara-ds/hoodwinked", extraction: "arxiv", paper: "https://arxiv.org/pdf/2308.01404", description: [""] },
+    { repo: "https://github.com/yiranwu0/MathChat", extraction: "arxiv", paper: "https://arxiv.org/pdf/2306.01337", description: [""] },
+    { repo: "https://github.com/OpenGVLab/GITM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2305.17144", description: [""] },
+    { repo: "https://github.com/eilamshapira/HumanChoicePrediction", extraction: "arxiv", paper: "https://arxiv.org/pdf/2305.10361", description: [""] },
+    { repo: "https://github.com/hjian42/PersonaLLM", extraction: "arxiv", paper: "https://arxiv.org/pdf/2305.02547", description: [""] },
+    { repo: "https://github.com/wbbeyourself/SCM4LLMs", extraction: "arxiv", paper: "https://arxiv.org/pdf/2304.13343", description: [""] },
+    { repo: "https://github.com/ljwztc/MedChain", extraction: "arxiv", paper: "https://arxiv.org/pdf/2412.01605", description: [""] },
+    { repo: "https://github.com/ChatCollab/ChatCollab", extraction: "arxiv", paper: "https://arxiv.org/pdf/2412.01992", description: [""] },
+    { repo: "https://github.com/stable-lab/MAGE", extraction: "arxiv", paper: "https://arxiv.org/pdf/2412.07822", description: [""] },
+    { repo: "https://github.com/XMUDM/BioResearcher", extraction: "arxiv", paper: "https://arxiv.org/pdf/2412.09429", description: [""] },
+    { repo: "https://github.com/Fu-Dayuan/AgentRefine", extraction: "arxiv", paper: "https://arxiv.org/pdf/2501.01702", description: [""] },
+    { repo: "https://github.com/algorithmicsuperintelligence/openevolve", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.12916", description: [""] },
+    { repo: "https://github.com/LLM4SOC-Topic/RulePilot", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.12224", description: [""] },
+    { repo: "https://github.com/QUARRG/Lie_group_swarm", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.10858", description: [""] },
+    { repo: "https://github.com/zheng977/MutiAgent4Fraud", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.06892", description: [""] },
+    { repo: "https://github.com/sntubix/agentic-pdm-log-cleaning", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.05311", description: [""] },
+    { repo: "https://github.com/leonjvr/ai-citation-auditor", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.04683", description: [""] },
+    { repo: "https://github.com/Ji-Cather/CiteAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.03758", description: [""] },
+    { repo: "https://github.com/anonymAgent/RefAgent", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.03153", description: [""] },
+    { repo: "https://github.com/huawei-lin/Agent-Omni", extraction: "arxiv", paper: "https://arxiv.org/pdf/2511.02834", description: [""] },
+    { repo: "https://github.com/fengzer/VDSAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.24339", description: [""] },
+    { repo: "https://github.com/FoundationAgents/ReCode", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.23564", description: [""] },
+    { repo: "https://github.com/valleysprings/TrustResearcher", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.20844", description: [""] },
+    { repo: "https://github.com/zade90/Agora", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.19008", description: [""] },
+    { repo: "https://github.com/AgentToolkit/agent-lifecycle-toolkit", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.17874", description: [""] },
+    { repo: "https://github.com/Connector-Tool/RiskTagger", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.17848", description: [""] },
+    { repo: "https://github.com/victorknox/QuittingAgents", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.17848", description: [""] },
+    { repo: "https://github.com/CellFace/TriAgent", extraction: "arxiv", paper: "https://arxiv.org/abs/2510.16080", description: [""] },
+    { repo: "https://github.com/forangel2014/Towards-Agentic-Self-Learning", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.14253", description: [""] },
+    { repo: "https://github.com/WadElla/Revelation", extraction: "arxiv", paper: "https://arxiv.org/pdf/2510.13925", description: [""] },
+                    
+    ];
+
+    function shortRepoName(url) {
+      try {
+        const u = new URL(url);
+        const parts = u.pathname.split("/").filter(Boolean);
+        return parts.length >= 2 ? `${parts[0]}/${parts[1]}` : url;
+      } catch {
+        return url;
+      }
+    }
+
+    function renderRepoTable(tbodyId, rows) {
+      const tbody = document.getElementById(tbodyId);
+      if (!tbody) return;
+
+      tbody.innerHTML = "";
+      rows.forEach((item, index) => {
+        const tr = document.createElement("tr");
+        const numberTd = document.createElement("td");
+        numberTd.textContent = index + 1;
+        numberTd.style.fontWeight = "600";
+        numberTd.style.textAlign = "center";
+
+        const repoTd = document.createElement("td");
+        const repoA = document.createElement("a");
+        repoA.href = item.repo;
+        repoA.target = "_blank";
+        repoA.rel = "noreferrer";
+        repoA.textContent = shortRepoName(item.repo);
+        repoTd.appendChild(repoA);
+
+        const extTd = document.createElement("td");
+        extTd.textContent = item.extraction || "-";
+
+        const paperTd = document.createElement("td");
+        if (item.paper && item.paper.trim() !== "" && item.paper.trim() !== "No") {
+          if (/^https?:\/\//i.test(item.paper)) {
+            const paperA = document.createElement("a");
+            paperA.href = item.paper;
+            paperA.target = "_blank";
+            paperA.rel = "noreferrer";
+            paperA.textContent = "Paper";
+            paperTd.appendChild(paperA);
+          } else {
+            paperTd.textContent = item.paper;
+          }
+        } else {
+          paperTd.textContent = "-";
+        }
+
+        const patTd = document.createElement("td");
+        const desc = item.description || item.desription;
+        if (Array.isArray(desc) && desc.length) {
+          patTd.textContent = desc.filter(Boolean).join(" ") || "-";
+        } else if (typeof desc === "string" && desc.trim() !== "") {
+          patTd.textContent = desc;
+        } else {
+          patTd.textContent = "-";
+        }
+
+        tr.appendChild(numberTd);
+        tr.appendChild(repoTd);
+        tr.appendChild(extTd);
+        tr.appendChild(paperTd);
+        tr.appendChild(patTd);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    let zoomScale = 1;
+
+    function applyZoom() {
+      const imgEl = document.getElementById("img-modal-src");
+      if (!imgEl) return;
+
+      imgEl.style.transform = `scale(${zoomScale})`;
+      imgEl.style.cursor = zoomScale > 1 ? "grab" : "default";
+    }
+
+    function openImageModal(src, title, desc) {
+      const modal = document.getElementById("img-modal");
+      const imgEl = document.getElementById("img-modal-src");
+      const titleEl = document.getElementById("img-modal-title");
+      const descEl = document.getElementById("img-modal-desc");
+      const pan = document.getElementById("pan-container");
+      if (!modal || !imgEl || !titleEl || !descEl || !pan) return;
+
+      imgEl.src = src;
+      imgEl.alt = title || "";
+      titleEl.textContent = title || "";
+      descEl.innerHTML = desc || "";
+
+      zoomScale = 1;
+      applyZoom();
+      pan.scrollLeft = 0;
+      pan.scrollTop = 0;
+
+      modal.classList.add("is-active");
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById("img-modal");
+      if (modal) modal.classList.remove("is-active");
+    }
+
+    function renderPatternGrid() {
+  const grid = document.getElementById("pattern-grid");
+  const empty = document.getElementById("pattern-empty");
+  if (!grid || !empty) return;
+
+  grid.innerHTML = "";
+
+  if (!patternImages.length) {
+    empty.style.display = "block";
+    return;
+  }
+
+  empty.style.display = "none";
+
+  for (const p of patternImages) {
+    const col = document.createElement("div");
+    col.className = "column is-4";
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const cardImg = document.createElement("div");
+    cardImg.className = "card-image";
+
+    const fig = document.createElement("figure");
+    fig.className = "image is-4by3";
+
+    const img = document.createElement("img");
+    img.src = `static/images/patterns/${p.file}`;
+    img.alt = p.title || p.file;
+    img.style.objectFit = "contain";
+    img.onerror = () => {
+      img.remove();
+      fig.classList.remove("image", "is-4by3");
+      fig.style.minHeight = "10rem";
+      fig.style.display = "flex";
+      fig.style.alignItems = "center";
+      fig.style.justifyContent = "center";
+      fig.style.padding = "1rem";
+      fig.style.background = "#f5f5f5";
+      fig.textContent = `Image missing: ${p.file}`;
+    };
+
+    fig.appendChild(img);
+    cardImg.appendChild(fig);
+
+    const cardContent = document.createElement("div");
+    cardContent.className = "card-content";
+
+    const title = document.createElement("p");
+    title.className = "title is-6";
+    title.textContent = p.title || p.file;
+    cardContent.appendChild(title);
+
+    const patternsPreview = document.createElement("p");
+    patternsPreview.className = "content is-size-7";
+
+    const totalOccurrences = Object.values(p.patterns || {}).reduce(
+      (sum, count) => sum + count,
+      0
+    );
+
+    patternsPreview.textContent = `${totalOccurrences} total pattern occurrences`;
+    cardContent.appendChild(patternsPreview);
+
+    card.appendChild(cardImg);
+    card.appendChild(cardContent);
+
+    card.style.cursor = "pointer";
+    card.onclick = () => {
+      openImageModal(
+        img.src,
+        p.title || p.file,
+        formatPatternOccurrences(p.patterns)
+      );
+    };
+
+    col.appendChild(card);
+    grid.appendChild(col);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const imgEl = document.getElementById("img-modal-src");
+  const pan = document.getElementById("pan-container");
+
+  document.getElementById("img-modal-close")?.addEventListener("click", closeImageModal);
+  document.getElementById("img-modal-bg")?.addEventListener("click", closeImageModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeImageModal();
+  });
+
+  document.getElementById("zoom-in")?.addEventListener("click", () => {
+    zoomScale = Math.min(zoomScale + 0.2, 5);
+    applyZoom();
+  });
+
+  document.getElementById("zoom-out")?.addEventListener("click", () => {
+    zoomScale = Math.max(zoomScale - 0.2, 1);
+    applyZoom();
+  });
+
+  document.getElementById("zoom-reset")?.addEventListener("click", () => {
+    zoomScale = 1;
+    applyZoom();
+    if (!pan) return;
+    pan.scrollLeft = 0;
+    pan.scrollTop = 0;
+  });
+
+  let isDown = false;
+  let startX = 0, startY = 0;
+  let scrollLeft = 0, scrollTop = 0;
+
+  imgEl?.addEventListener("mousedown", (e) => {
+    if (!pan) return;
+    if (zoomScale <= 1) return;
+    e.preventDefault();
+
+    isDown = true;
+    imgEl.style.cursor = "grabbing";
+
+    startX = e.clientX;
+    startY = e.clientY;
+    scrollLeft = pan.scrollLeft;
+    scrollTop = pan.scrollTop;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!pan) return;
+    if (!isDown) return;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    pan.scrollLeft = scrollLeft - dx;
+    pan.scrollTop = scrollTop - dy;
+  });
+
+  document.addEventListener("mouseup", () => {
+    if (!isDown) return;
+    isDown = false;
+    if (imgEl) imgEl.style.cursor = zoomScale > 1 ? "grab" : "default";
+  });
+
+  await loadPatternCounts();
+  renderRepoTable("agentic-tbody", agenticData);
+  renderRepoTable("aiagents-tbody", agentData);
+  renderPatternGrid();
+});
+</script>
+</body>
+</html>
