@@ -138,7 +138,6 @@
     },
     "Memory Type": {
       "Long-Term Memory pattern": 48,
-      "Memory Type pattern": 0,
       "Selective Forgetting pattern": 11,
       "Short-Term Memory pattern": 38
     },
@@ -382,7 +381,6 @@
     },
     "Memory Type": {
       "Long-Term Memory pattern": 309,
-      "Memory Type pattern": 0,
       "Selective Forgetting pattern": 32,
       "Short-Term Memory pattern": 185
     },
@@ -625,8 +623,7 @@
       "Context Window Manager pattern": 430
     },
     "Memory Type": {
-      "Long-Term Memory pattern160": 0,
-      "Memory Type pattern": 0,
+      "Long-Term Memory pattern": 0,
       "Selective Forgetting pattern": 13,
       "Short-Term Memory pattern": 67
     },
@@ -870,7 +867,6 @@
     },
     "Memory Type": {
       "Long-Term Memory pattern": 78,
-      "Memory Type pattern": 0,
       "Selective Forgetting pattern": 9,
       "Short-Term Memory pattern": 29
     },

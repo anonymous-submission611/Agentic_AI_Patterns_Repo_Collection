@@ -28,6 +28,11 @@
             </a>
           </span>
           <span class="link-block">
+            <a class="external-link button is-normal is-rounded is-dark" href="#patterns">
+              <span>Pattern Categorization</span>
+            </a>
+          </span>
+          <span class="link-block">
             <a class="external-link button is-normal is-rounded is-dark" href="#agentic">
               <span>Agentic</span>
             </a>
@@ -37,17 +42,11 @@
               <span>AI Agents</span>
             </a>
           </span>
-          <span class="link-block">
-            <a class="external-link button is-normal is-rounded is-dark" href="#patterns">
-              <span>Pattern Categorization</span>
-            </a>
-          </span>
         </div>
 
       </div>
     </div>
   </section>
-
 
   <section class="section" id="browse">
   <div class="container is-fluid">
@@ -70,6 +69,24 @@
     </div>
   </div>
 </section>
+
+  <section class="section" id="patterns">
+    <div class="container is-fluid">
+      <div class="content">
+        <h2 class="title is-3">Pattern Categorization</h2>
+        <p>
+          Browse the PNG overviews for each pattern category. Click any card to open a larger view.
+        </p>
+
+        <!-- If you later add images, put them in: static/images/patterns/ -->
+        <div id="pattern-grid" class="columns is-multiline"></div>
+
+        <div id="pattern-empty" class="notification is-light" style="display:none; margin-top: 1rem;">
+          No pattern categories yet. Add PNGs under <code>static/images/patterns/</code> and list them in <code>patternImages</code>.
+        </div>
+      </div>
+    </div>
+  </section>
 
 <section class="section" id="pattern-extraction">
   <div class="container is-fluid">
@@ -126,24 +143,6 @@
             </thead>
             <tbody id="aiagents-tbody"></tbody>
           </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="patterns">
-    <div class="container is-fluid">
-      <div class="content">
-        <h2 class="title is-3">Pattern Categorization</h2>
-        <p>
-          Browse the PNG overviews for each pattern category. Click any card to open a larger view.
-        </p>
-
-        <!-- If you later add images, put them in: static/images/patterns/ -->
-        <div id="pattern-grid" class="columns is-multiline"></div>
-
-        <div id="pattern-empty" class="notification is-light" style="display:none; margin-top: 1rem;">
-          No pattern categories yet. Add PNGs under <code>static/images/patterns/</code> and list them in <code>patternImages</code>.
         </div>
       </div>
     </div>
@@ -523,19 +522,181 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-// This converts the pattern count object into readable HTML.
+// Add pattern descriptions here. The keys should match the pattern names shown in the popup tables.
+const patternDescriptions = {
+  "A/B Testing for Prompt Strategies pattern": "This pattern provides a structured, data-driven method for improving the effectiveness of prompts.",
+  "Access Tracking pattern": "The pattern records every instance of data being viewed, retrieved, or modified by users, services, or agents. It captures who accessed what, when, from where, and under what authorization.It focuses on data usage, enabling compliance verification and detecting unauthorized access.",
+  "Adaptive Controller pattern": "This pattern ensures that the agentic AI system's configurations, resource limits and behavioral parameters are dynamically evolving in response to the system's changing conditions. They are no longer relying on fixed thresholds and policies. Instead the system collects performance indicators and feedback and then adjusts the variables accordingly.",
+  "Agent Adapter pattern": "An agent adapter provides interface to connect the agent and external tools for task completion.",
+  "Agent as a Coordinator pattern": "Here, agents in the coordinator role formulate highlevel strategies and orchestrate the execution of tasks by delegating task execution responsibilities to other agents, external tools, or non-agent systems so that tasks are delegated efficiently.",
+  "Agent as a Worker pattern": "Here, agents in the worker role need to generate strategies and execute specific tasks in line with those strategies.",
+  "Asynchronous Workflow pattern": "This pattern allows multiple operations in the agentic system to run concurrently, return results when ready, and feed into  the following steps as they complete.",
+  "Behavior Bounds pattern": "This pattern ensures that an LLM remains within its given role by the developer with its responsibilities, tasks and goals independently from what the developer prompted it with and also follows a stable policy. ",
+  "Behavior Monitoring pattern": "This pattern makes sure that the agentic AI system does not act like a black box. Instead it tracks and also records important aspects of its performance decisions, resourse usage and error frequencies. After, these are analyzed and collected over time so the system can gain visibility of its esoteric issues before they become severe and spots opportunities for improvements.",
+  "Centralized Pattern": "Involves a central agent or system managing the coordination of all agents. This approach provides strong oversight but can become a bottleneck, particularly in large-scale system.",
+  "Centralized pattern": "Involves a central agent or system managing the coordination of all agents. This approach provides strong oversight but can become a bottleneck, particularly in large-scale system.",
+  "Chain of Draft pattern": "This pattern has LLMs used in agentic AI systems solve complex problems using brief, information dense notes instead of full step by step explanations. Like jotting key points, this approach cuts token use while maintaining reasoning accuracy.",
+  "Chain of Thought pattern": "The Chain of Thought (CoT) mechanism involves the agent articulating its reasoning process step-by-step, mirroring human cognitive processes. This method helps in tracing how decisions are made and identifying where errors might have occurred.",
+  "Checkpoint Recovery pattern": "This pattern allows a complex multi step process involving LLM agents can gracefully recover if a failure or interruption occurs.",
+  "CI CD Integration for LLM Systems pattern": "This pattern ensures that prompt changes, model updates, and infrastructure tweaks move through an automated pipeline before production. Continuous Integration builds, tests, and validates changes, while Continuous Deployment delivers them safely with minimal manual effort.",
+  "Circuit Breaker pattern": "When repeating errors occur for example tool failures, the LLM-based system doesn’t keep retrying the failing operation indefinitely.",
+  "Collaborative Problem Solving pattern": "This pattern gives the agents the opportunity to work together with each contributing their insights to form a well rounded answer. Here all agents are taking part in a shared reasoning process and they are presenting their different perspectives.",
+  "Compliance Monitoring pattern": "The pattern ensures that a Foundation Model system continuously adheres to laws, policies, and internal standards. It also systematically checks logs, access records, and activities against current regulations or corporate guidelines. This creates a feedback loop that quickly detects and addresses potential breaches, reducing liability and reassuring stakeholders of ethical and legal alignment.",
+  "Confidence Disclosure pattern": "This pattern lets the model communicate its level of certainty about its given answer.",
+  "Consent Management pattern": "The pattern ensures that users are fully informed and in control of how their personal data is collected, stored, and used. Beyond data minimization and masking, it explicitly requests permission, allows easy withdrawal, and provides transparency on data usage.",
+  "Context Aware Sharing Transparency pattern": "Information sharing is adapted based on the context and current state of the system.",
+  "Context Inheritance pattern": "This pattern ensures that when a new sub-context is created, it automatically inherits essential details, constraints, and facts from its parent context, allowing for reduced repetition and incremental specialization.",
+  "Context Refinement pattern": "The pattern focuses on ensuring the agentic AI system operates on most relevant and high quality piece of information possible. This pattern ensures the best approach for refining, distilling or reselecting the context before the generation of the model response.",
+  "Context Refresh pattern": "It is a pattern that ensures that as tasks into the intermediate steps of the agentic system evolve, the intermediate memory of the language model does not become outdated but on the contrary, this approach re-examines what is in the context window and updates it to reflect the current state of the conversation or the reasoning process.",
+  "Context Stack pattern": "Allows an agentic LLM system to manage nested subtasks, side explorations, or temporary shifts in focus by organizing contexts in a stack-like structure. Each new sub-context is “pushed” onto the stack as the active working memory, and once finished, it is “popped” to restore the previous state.",
+  "Context Switching pattern": "Ensures that the agentic system can proceed from one context set to the other without confusion or data leakage. Here, a structured method of pausing and storing one context while resuming another is revealed. This switching of information lets the model handle multiple domains and sessions without undesirably merging them. ",
+  "Context Window Manager pattern": "With this pattern LLM systems make the most out of their limited context window, instead of appending large amounts of text to each prompt or ignoring important previous information.",
+  "Contextual Memory pattern": "Helps the LLM in the agentic system retain key details, past interactions, and user preferences. Without it, each query is treated in isolation. By remembering prior context, the model delivers more relevant, consistent, and natural responses.",
+  "Cross reflection pattern": "This type of reflection pattern uses different agents or Foundation Models to provide feedback and refinements on the plan.",
+  "Cross Reflection pattern": "This type of reflection pattern uses different agents or Foundation Models to provide feedback and refinements on the plan.",
+  "Custom pattern": "In this custom setup, the developer decides which agents can interact with each other and how the control flows between them.",
+  "Custom Pattern": "In this custom setup, the developer decides which agents can interact with each other and how the control flows between them.",
+  "Data Chunking pattern": "This pattern takes care of the isue of processing large or comlex datasets. It chunks the data to more manageable and smaller segments, instead of having the model assessing massive amount of information.",
+  "Data Transformation pattern": "Makes sure that when the LLM receives data in a specific - not needed format it has the ability to transform them in the needed form.",
+  "Data Validation pattern": "By utilizing this pattern the user/developer can be sure that the LLM asseses first the data it will use for any type of data corruption or malformation.",
+  "Database pattern": "Databases enable precise memory operations through SQL queries, providing structured and efficient data management.",
+  "Debate-Based Cooperation pattern": "Under this design pattern an agent receives feedback from other agents, and adjusts the thoughts and behaviors during the debate with other agents until a consensus is reached.",
+  "Decision Trace-Logging pattern": "In this pattern the intermediate reasoning steps that allow audits of the model's path to its final answer, are available to the developer for explainability and activity tracking.",
+  "Disaster Recovery & Backup Strategies pattern": "A pattern that allows for agentic AI systems to survive and recover from catastrophic failures like data corruption or massive network disruptions. It allows the system to return to normal operations with minimal time and data loss. This is achieved by backing up critical stages like for example checkpoints and prompt configurations.",
+  "Dynamic Subscription & Scaling pattern": "A pattern that allows for agentic AI systems to survive and recover from catastrophic failures like data corruption or massive network disruptions. It allows the system to return to normal operations with minimal time and data loss. This is achieved by backing up critical stages like for example checkpoints and prompt configurations.",
+  "Edge vs. Cloud Deployment pattern": "In this case the pattern assists with the decision to run the agentic systems either on the network's edge or on the cloud. Cloud deployments offer scalability, elasticity, and easier management, but may suffer from latency and compliance issues. Edge deployments (via regional data centers, on-prem servers, or devices) reduce latency and meet local governance needs, but demand tighter resource management and may limit scalability. A hybrid approach can balance performance, compliance, and cost.",
+  "Embeddings pattern": "Able to transform memory information into compact embedding vectors proved to enhance the efficiency of memory retrieval processes.",
+  "Environmental Feedback pattern": "This feedback for the agent's performance is obtained from the objective world or virtual environment.",
+  "Episodic Memory pattern": "The pattern enables an agentic system to recall information tied to specific past sessions or interactions. Rather than storing all long-term knowledge as one static pool, it organizes data into temporal segments, with each representing a distinct conversation or event. This structure helps the system reconstruct past contexts, trace how conclusions were reached, and maintain continuity across engagements over time.",
+  "Error Classifier pattern": "This pattern makes sure that when something goes wrong in the agent generation (for example rule violation, token limit, flaued tool calling) the system does not deal with it as a generic error, but instead identifies the nature of the error and it categorizes it into meaningful categories that will help with dealing with it.",
+  "Error Recovery Chain pattern": "Here, a predefined sequence of simplified solutions would be suggested when an issue arises in the agentic AI workflow's processes. This pattern allows for incremental recovery from the error. ",
+  "Expertise Adaptation pattern": "The pattern ensures that the LLM used in the agentic system adjusts the complexity and technical depth of its repsonses according to the user's background, skill level and likings.",
+  "Explainable Compliance pattern": "Makes sure that the agentic system adheres to relevant laws, regulations, and organizational policies and also demonstrate and explain that adherence when questioned so that the processes can be tracked by human developers.",
+  "External pattern": "With external tools planning, the agent’s capabilities are extended beyond its inherent functions by allowing seamless interaction with external data sources and services (for example APIs). Moreover, external models utlize cutting edge algorithms and are employed for specific tasks that demand specialized computational expertise.",
+  "External Pattern": "With external tools planning, the agent’s capabilities are extended beyond its inherent functions by allowing seamless interaction with external data sources and services (for example APIs). Moreover, external models utlize cutting edge algorithms and are employed for specific tasks that demand specialized computational expertise.",
+  "External Tools pattern": "The agents are empowered with the capability  to call external tools for executing action.",
+  "Federated pattern": "Federated coordination is managed in a decentralized manner, with each agent handling its own coordination while still communicating with others.",
+  "Full Transparency pattern": "In this pattern, all information is openly shared among agents. This maximizes cooperation and ensures that all agents have the same level of information, which can be particularly beneficial in collaborative environments.",
+  "Fully Distributed pattern": "This pattern involves no central coordinator, as all agents coordinate directly with each other, often using peer-to-peer communication protocols.",
+  "Goal-Based Transparency pattern": "Information between the agents in a system is shared only if it is relevant to achieving specific goals.",
+  "Graceful Degradation Control pattern": "With this pattern applied, in case an agentic AI workflow cannot sustain its functionality level it does not simply fail alltogether. Instead it moves to gracefully degrade the completeness of the result so as to provide the user with some type of credible output.",
+  "Hierarchical Decomposition pattern": "This pattern makes sure that when the system has to deal with many different subtasks it organizes a hierarchical structure among the agents. ",
+  "Hierarchical Decomposition Pattern": "This pattern makes sure that when the system has to deal with many different subtasks it organizes a hierarchical structure among the agents. ",
+  "Hierarchical Memory Store pattern": "This pattern ensures that the long term knowledge is organised in a structured format (like a tree format or nested formats) and this can help the used LLM to navigate and retrieve the information more efficiently and organised. This also helps into finding conceptual relationships between the data.",
+  "Human Feedback pattern": "In addition to obtaining  feedback from the environment, directly interacting with humans is also a very intuitive strategy to  enhance the agent planning capability. The human  feedback is a subjective signal. It can effectively  make the agent align with the human values and  preferences, and also help to alleviate the hallucination problem.",
+  "Human Readable Summarization pattern": "Ensures that even complex technical chains of reasoning are distilled into accessible narratives for non expert developers.",
+  "Incremental Model Querying pattern": "This pattern involves accessing the Foundation Model at each step of the plan generation process.",
+  "Information Distillation pattern": "It ensures that as conversations or reasoning grow, older content is compressed into concise, essential summaries. Instead of keeping every detail in the context, the system distills past information into key points or structured notes.",
+  "Information Masking pattern": "This pattern makes sure that sensitive or personally identifiable information is never exposed in raw form. User names, IDs, or confidential tokens are masked, redacted, or replaced with anonymized placeholders. This preserves the usefulness of the data while protecting privacy and compliance.",
+  "Infrastructure & Containerization pattern": "This pattern makes sure that the agentic AI system can run consistently across different environments  by adopting reproducible and scalable infrastructure designs.",
+  "Intent Clarification pattern": "The pattern focuses on being sure that the LLMs in the agentic AI system understand what the users want before giving them irrelevant or wrong answers. It is common for users giving vague queries so the model, in this case, asks for clarification when in doubt and attempts to confirm the user's intentions.",
+  "Internal Knowledge pattern": "In addition to utilizing  external tools, many agents rely solely on the internal knowledge of LLMs to guide their actions and decisions.",
+  "Internal Planner pattern": "Internal tools, are tools and algorithms developed within the system to optimize performance and provide tailored solutions to operational challenges. They can include proprietary LLMs and specific algorithms designed to handle unique tasks efficiently.",
+  "Knowledge Integration pattern": "With knowledge integration the LLM combines information from different sources or datasets into a coherent answer instead of relying on a prompt context or knowledge source. The model retrieves information from multiple sources (tools or KB) making its output more credible.",
+  "Learning Feedback pattern": "With the application of this pattern, the system does not just handle errors in the moment but learns from past experiences to improve future decisions. By incorporating feedback from users, applications, metrics, or automated evaluations, it updates models, rules, and prompts over time. This approach emphasizes iterative improvement, reducing repeated mistakes and enabling smarter, more reliable interactions.",
+  "Load Balancing & Rate Limiting Strategies pattern": "The pattern helps the agentic system handle variable request volumes and traffic spikes. On one hand,  Load balancing distributes requests across servers, endpoints, or tools to prevent overload, while rate limiting controls intake, throttling excess requests to avoid system strain or cost spikes.",
+  "Long-Term Memory pattern": "Long-term memory retains information over long periods of time, which is essential for tasks that require historical data, knowledge, past observations and experiences.",
+  "Long-Term Memory pattern160": "Long-term memory retains information over long periods of time, which is essential for tasks that require historical data, knowledge, past observations and experiences.",
+  "Memory Consolidation pattern": "Ensures that over time scattered pieces of information are merged into a more unified and stable memory record. Instead of leaving knowledge fragmented across many small pieces, the agentic system periodically synthesizes them into a coherent summary or narratives.",
+  "Memory Federation pattern": "Ensures that knowledge spread across multiple memory systems (for example hierarchical stores, episodic archives, semantic graphs, or vector indexes) can be accessed as a unified resource. So instead of querying each store separately, the pattern provides a collective interface that coordinates queries, merges results, and presents a coherent view, simplifying retrieval. ",
+  "Memory Pruning pattern": "This pattern makes sure that as the used LLM’s knowledge grows, outdated and irrelevant  information is periodically removed or compressed. This keeps long-term memory focused, reduces token use, speeds retrieval, and prevents confusion or possible contradictions from the stored data.",
+  "Memory Reflection pattern": "Memory reflection allows agents to summarize and infer high-level insights from their past experiences and interractions, making abstract and complex decision-making possible.",
+  "Metric Driven Refinement pattern": "Improvements for LLM-based system should be driven by carefully chosen consistently monitored metrics.",
+  "Multi Factor Verification pattern": "This pattern strengthens authentication by requiring multiple credential types. This ensures that a single compromised factor doesn’t allow unauthorized access, adding a robust security layer beyond token authentication or role-based access.",
+  "Multi Input Modality pattern": "In contrast, multi-modality agents combine video/audio/image/text inputs uploaded by humans, and understand the operational and environmental context, enabling a more comprehensive and rich interaction with their environment.",
+  "Multi Modal Integration pattern": "This interaction pattern allows the LLMs into the agentic system to process and reason over multiple data types (text, images, audio) rather than just text. By combining these inputs, the model can generate richer and more context aware outputs.",
+  "Multi Model pattern": "Here, multiple models are used in the same agent. In more complex systems, multi-model configurations are often employed. Multiple models are used to handle different tasks or to enhance performance.",
+  "Multi-Agent Collaboration pattern": " The patterns under this category focus on task delegation, which involves assigning different agents to different tasks that can be created by prompting a single LLM (or multiple LLMs) to handle distinct responsibilities.",
+  "Multi-Path Planning pattern": "In this strategy, the reasoning steps for generating the final plans are  organized into a tree-like structure. Each intermediate step may have multiple subsequent steps. This  approach is analogous to human thinking, as individuals may have multiple choices at each reasoning  step.",
+  "Multimodal Guardrails pattern": "Guardrails can evaluate the contents either relying on predefined examples, or in a “reference-free” manner. So equivalently, when the foundation model creates results, guardrails need to ensure that the responses do not include biased or irrespective information to users, or fulfil the particular requirements of other system components. For 4. Bias Mitigation Pattern ensures your LLM-based system not only meets technical excellence but also aligns with ethical principles of fairness, inclusivity, and respect. For 5. make sure that the LLM never returns content that violates defined ethical guidelines, legal requirements, or user safety standards.",
+  "Natural Language Memory pattern": "Memory  information like the agents' observations and outputs are and using natural language. In that way the memory information can be expressed  in a flexible way, by keeping rich semantic information that can provide  comprehensive information able to guide agent behaviors.",
+  "Network pattern": "Allows for many to many communication paths between the peer to peer agents, making it suitable for problems without clear hierarchical decomposition.",
+  "Observability & Monitoring pattern": "This pattern allows the developer or the user to check how the agentic AI system behaves in a production setting. It provides insights and operators that are able to adress issues and optimize configurations.",
+  "One Shot Model Querying pattern": "The foundation model is accessed in a single instance to generate all necessary steps for the plan.",
+  "Output Templating pattern": "This pattern allows for the LLM used in the agentic ai system to output its answer in a predefined structure and format.",
+  "Parallel Task Coordinator pattern": "The pattern ensures that in case multiple tasks are processed concurrently, the LLM system orchestrates them efficiently, leveraging available resources to reduce the total completion time.",
+  "Parallelization pattern": "In this pattern the agents work simultaneously on a task and have their outputs aggregated programmatically.",
+  "Passive Goal Creator pattern": "This pattern analyses users’ articulated goals through the dialogue interface.",
+  "Planning pattern": "This main category of pattern enables LLMs to break down large tasks into subtasks. An LLM using the planning pattern will organize the sub-goals into a logical sequence. Depending on the complexity, the agent may plan actions in a linear order or create branches for parallel execution.",
+  "Policy Evolution & Update pattern": "Ensures that the agentic system’s policies (covering ethics, compliance, fairness, and security) remain updated and relevant as laws, social norms, and organizational standards evolve.",
+  "Proactive-Goal Creator pattern": "Proactive goal creator anticipates users’ goals by understanding human interactions and capturing the context via relevant tools.",
+  "Progress Monitor pattern": "In complex multi step workflows, the LLM system keeps track of and reports on its current progress it is not running the whole process in completion but by providing intermediate updates the developer can have an overlook and track the process. ",
+  "Progressive Disclosure pattern": "The pattern ensures not to overwhelm the user with information all at once but instead reveals step by step details responding to the continuously evolving interest and comprehension of the user.",
+  "Progressive Recovery pattern": "After a serious failure happens in the agentic system it does not try to fully restore all its previous capabilities at once but it is gradually introducing its previous functionality and data step by step, allowing careful return to full operation. ",
+  "Prompt Response Optimizer pattern": "Prompt/response optimiser refines the prompts/responses according to the desired input or output content and format.",
+  "Reflection pattern": "Through reflecting the  LLMs can produce improved results by critically analyzing their own outputs or the output of other LLMs.",
+  "Response Caching & Reuse pattern": "This pattern avoids recomputing answers for repeated or similar queries. By storing and reusing previous responses, the system cuts computation, lowers costs, and delivers faster replies. It’s especially useful for recurring questions, FAQs, or template based requests, improving throughput, user experience, and cost-efficiency.",
+  "Retrieval Augmented Generation pattern": "RAG is a technique for enhancing the accuracy and reliability of agents with facts retrieved from other sources (internal or online data). The knowledge gaps where the agents are lacking in memory are filled using the parameterized knowledge generated in vector databases.",
+  "Role Based Access pattern": "The pattern ensures that authenticated entities ( to be more precise: users, services, or agents) have permissions appropriate according to their role. Roles define what features, tools, or data an entity can access, preventing universal access to sensitive LLM capabilities. This approach keeps security granular, flexible, and easier to maintain.",
+  "Role-Based Cooperation pattern": "This pattern design involves assigning assorted roles, and finalising decisions in accordance with the roles of agents to facilitate division of labor, fault tolerance, scalability and accountability.",
+  "Role-Based Transparency pattern": "Information is shared based on the roles, individual tasks and responsibilities of each agent.",
+  "Round Robin pattern": "This pattern ensures that in case multiple LLM agents share a common set of tasks, each of them will get a fair turn to contribute. This means that tasks are evenly distributed among the agents.  ",
+  "Routing pattern": "This pattern simply classifies an input and directs it to a specialized follow up task.",
+  "Security Event Handler pattern": "The pattern makes sure that security incidents (for example prompt injections, unauthorized access, compliance violations, or suspicious outputs) trigger immediate, structured responses. It coordinates real-time actions like alerts, administrator notifications, adaptive policy enforcement, session isolation, or automatic rollbacks. This proactive handling minimizes damage, maintains stability, and reinforces user trust.",
+  "Security Policy Enforcer pattern": "This Audit pattern, ensures all components, actions, and decisions in an LLM system comply with organizational, regulatory, and ethical security policies.",
+  "Selective Forgetting pattern": "This pattern enables agents to get rid of irrelevant or outdated information, making sure that they maintain optimal performance without being burdened by unnecessary data. This capability is crucial in dynamic environments where data can be quickly considered relevant or irrelevant",
+  "Self Reflection pattern": "This type of feedback is usually generated based on pre-trained models. This mechanism consists of three crucial components:  output, feedback, and refinement. Firstly, the agent  generates an output. Then, it utilizes LLMs to provide feedback on the output and offers guidance on how to refine it. At last, the output is improved by the feedback and refinement. This output-feedback-refinement process iterates until reaching some desired conditions.",
+  "Semantic Compression pattern": "Here long term knowledge is represented in a more conceptual form. Only essential meanings and relationships are encoded. That limits token usage as well as improves retrieval efficiency, leding to a more meaningful way of storing useful information.",
+  "Sensitive Data Withholding Transparency pattern": "Sensitive information is withheld to protect privacy and security. This approach is crucial in scenarios where data sensitivity is high, and privacy regulations must be strictly followed.",
+  "Sequential pattern": "This pattern is ideal in scenarios where the task can be decomposed into a well-defined sequence of subtasks, some of which can be reliably handled by LLMs. The main goal here is to retain the system’s ability to produce reliable and/or deterministic outcomes despite the usage of LLMs.",
+  "Short Term Memory pattern": "Short-term memory handles short-term information relevant to immediate tasks. This type of memory is useful for temporary activities that do not require long-term storage, for example, configuration, working context, recent events, and the information within the context window of the Foundation Model.",
+  "Short-Term Memory pattern": "Short-term memory handles short-term information relevant to immediate tasks. This type of memory is useful for temporary activities that do not require long-term storage, for example, configuration, working context, recent events, and the information within the context window of the Foundation Model.",
+  "Single Agent Pattern": "This pattern proposes a single agent system. One agent with a host of tools and connected to an LLM. The agent then takes in a query and makes decisions on what tool to call using the LLM for its reasoning process.",
+  "Single Input Modality pattern": "Single-modality agents utilize one type of input such as text, vision, or audio which makes them ideal for straightforward tasks that require less computational resources and simpler data interpretation.",
+  "Single Model pattern": "Only one model is used. A single-model agent handles all tasks, which makes it suitable for simpler systems with a limited scope. This approach minimizes complexity but may not scale well for diverse tasks.",
+  "Single-Path Planning pattern": "In this strategy, the  final task is decomposed into several intermediate  steps. These steps are connected in a cascading manner, with each step leading to only one subsequent step. LLMs follow these steps to achieve the final  goal.",
+  "Source Attribution pattern": "In this Pattern the Foundation Model is able to refer to the source of its provided information  which promotes trust by making it clear which documents, APIs or datasets influenced the result.",
+  "Structured List pattern": "In that format information is systematically organized in lists or hierarchical structures that clearly showcase the relationships between the elements and allow fast data access and retrieval.",
+  "Supervisor pattern": "This pattern makes sure that one LLM agent (supervisor) takes on a higher level managerial role and distributes the tasks accordingly,  while the other agents focus on executing the assigned by the supervisor agent subtasks. ",
+  "Swarming pattern": "When multiple LLM agents each have specialized expertise or perspectives they work together like a panel of experts discussing evaluating and refining potential solutions.",
+  "Token Authentication pattern": "This pattern ensures that only verified users, services, or agents can access the agentic system or its data. It issues time-bound, revocable tokens representing authenticated identities. Each request must present a valid token, preventing unauthorized access.",
+  "Token Budget Manager pattern": "This pattern makes sure that when executing complex tasks the LLM system tracks how many tokens it’s consuming, allowing token usage overview and management.",
+  "Tool Agent Registry pattern": "The Tool/Agent Registry maintains a unified and convenient source to select diverse agents and tools. On the other hand The Event-Driven Tool Invocation Pattern make sure that the agentic system can trigger tool in response to events as they arise.",
+  "Tool Chain Composition pattern": "This pattern lets the LLM coordinate multiple tools in a sequence. Each tool’s output feeds into the next, creating a workflow that solves complex and multi step queries beyond the ability of a single tool.",
+  "Tool Output Integration pattern": "Ensures that the LLM in the agentic system incorporates tool outputs smoothly into its reasoning and final response. Because without it, raw outputs may be appended without context or coherence. So this pattern helps the model interpret results and present a cohesive answer rather than a patching of fragments.",
+  "Tool Selection pattern": "Identify and pick the most suitable tool from a set of options, making sure that the agent’s chosen utility aligns with the task at hand.",
+  "Tool Use pattern": "This pattern in agentic AI systems enhances the capabilities of LLMs by enabling them to interact dynamically with external tools and resources.",
+  "Tree of Thought pattern": "Tree of Thoughts (ToT) extends the reflection process by allowing agents to explore multiple reasoning pathways simultaneously. This mechanism helps agents to consider various possible outcomes before settling on a final decision, enhancing the robustness and depth of the decision-making process.",
+  "Uncertainty Handling pattern": "This pattern allows for the agentic system to identify, manage and communicate its own uncertainty about each answer it gives.",
+  "Voting-Based Cooperation pattern": "In this pattern, agents can freely provide their opinions and reach consensus through voting-based cooperation."
+};
+
+function getPatternDescription(patternName) {
+  return patternDescriptions[patternName] || "";
+}
+
+// This converts the pattern count object into a popup table.
 // It sorts patterns from highest occurrence to lowest.
 function formatPatternOccurrences(patterns) {
-  const patternsHtml = Object.entries(patterns || {})
+  const patternRows = Object.entries(patterns || {})
     .sort((a, b) => b[1] - a[1])
     .map(([pattern, count]) => {
-      const occurrenceLabel = Number(count) === 1 ? "occurrence" : "occurrences";
-      return `<li><strong>${escapeHtml(pattern)}</strong>: ${escapeHtml(count)} ${occurrenceLabel}</li>`;
+      return `
+        <tr>
+          <td><strong>${escapeHtml(pattern)}</strong></td>
+          <td>${escapeHtml(getPatternDescription(pattern))}</td>
+          <td class="has-text-right">${escapeHtml(count)}</td>
+        </tr>
+      `;
     })
     .join("");
 
-  return patternsHtml
-    ? `<p style="margin-bottom: 0.5rem;"><strong>Numbers indicate occurrences across all extraction methods.</strong></p><ul>${patternsHtml}</ul>`
+  return patternRows
+    ? `
+      <p style="margin-bottom: 0.5rem;"><strong>Numbers indicate occurrences across all extraction methods.</strong></p>
+      <div class="table-container pattern-popup-table-container">
+        <table class="table is-striped is-hoverable is-fullwidth is-size-7 pattern-popup-table">
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Description</th>
+              <th class="has-text-right">Occurrences</th>
+            </tr>
+          </thead>
+          <tbody>${patternRows}</tbody>
+        </table>
+      </div>
+    `
     : "No pattern occurrence data available.";
 }
 
@@ -952,7 +1113,7 @@ async function loadPatternCounts() {
       titleEl.textContent = title || "";
       descEl.innerHTML = desc || "";
 
-      zoomScale = 1;
+      zoomScale = 1; 
       applyZoom();
       pan.scrollLeft = 0;
       pan.scrollTop = 0;

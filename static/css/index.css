@@ -731,6 +731,22 @@ a:focus {
   outline-offset: 2px;
 }
 
+.pattern-popup-table-container {
+  max-height: 18rem;
+  overflow: auto;
+}
+
+.pattern-popup-table th:first-child,
+.pattern-popup-table td:first-child {
+  width: 32%;
+}
+
+.pattern-popup-table th:last-child,
+.pattern-popup-table td:last-child {
+  width: 7rem;
+  white-space: nowrap;
+}
+
 
 /* Print styles */
 @media print {
@@ -748,6 +764,5 @@ a:focus {
     box-shadow: none !important;
   }
 }
-
 
 
