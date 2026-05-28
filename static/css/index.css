@@ -775,6 +775,14 @@ a:focus {
   white-space: nowrap;
 }
 
+.pattern-filter {
+  margin: 1rem 0 1.25rem;
+}
+
+.pattern-filter .control.is-expanded {
+  min-width: min(26rem, 100%);
+}
+
 
 /* Print styles */
 @media print {

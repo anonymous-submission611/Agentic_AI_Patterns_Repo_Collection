@@ -75,8 +75,29 @@
       <div class="content">
         <h2 class="title is-3">Pattern Categorization</h2>
         <p>
-          Browse the overview and analysis for each pattern category. Click any card to open a larger view. The window shows an image with the general pattern categories (C - blue nodes) and the individual patterns (P- pink nodes) met in each category. The patterns that belong in the same category are considered related. For each pattern, the repository occurences, aliases (if they exist), the pattern description, the motivation, solution, source and source type are included.  
+          Browse the overview and analysis for each pattern category. Use the filters to view a specific category or to find all categories that include a selected pattern. Click any card to open a larger view with the category map and its pattern details, including occurrences, aliases, description, motivation, solution, source, and source type. In the maps, category nodes are shown in blue (C) and individual pattern nodes are shown in pink (P); patterns within the same category are considered related.
         </p>
+
+        <div class="pattern-filter field is-grouped is-grouped-multiline">
+          <div class="control">
+            <div class="select">
+              <select id="pattern-filter-mode" aria-label="Filter mode">
+                <option value="category">Category</option>
+                <option value="pattern">Pattern</option>
+              </select>
+            </div>
+          </div>
+          <div class="control is-expanded">
+            <div class="select is-fullwidth">
+              <select id="pattern-filter-query" aria-label="Filter pattern categories">
+                <option value="">All categories</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button id="pattern-filter-clear" class="button" type="button">Clear</button>
+          </div>
+        </div>
 
         <!-- If you later add images, put them in: static/images/patterns/ -->
         <div id="pattern-grid" class="columns is-multiline"></div>
@@ -537,6 +558,20 @@ let patternCounts = {
     "Workflow": 2490
   }
 };  
+
+const canonicalPatternNames = {
+  "Centralized pattern": "Centralized Pattern",
+  "Custom pattern": "Custom Pattern",
+  "Cross reflection pattern": "Cross Reflection pattern",
+  "External pattern": "External Pattern",
+  "Hierarchical Decomposition pattern": "Hierarchical Decomposition Pattern",
+  "Voting-Based Cooperation  pattern": "Voting-Based Cooperation pattern"
+};
+
+function getCanonicalPatternName(patternName) {
+  return canonicalPatternNames[patternName] || patternName;
+}
+
 // pattern occurrences across all extraction methods:
 // Github + arXiv + Forward + Backward
 function getTotalPatternsForCategory(patternCounts, categoryName) {
@@ -556,7 +591,8 @@ function getTotalPatternsForCategory(patternCounts, categoryName) {
     }
 
     Object.entries(categoryPatterns).forEach(([patternName, count]) => {
-      totals[patternName] = (totals[patternName] || 0) + Number(count || 0);
+      const canonicalPatternName = getCanonicalPatternName(patternName);
+      totals[canonicalPatternName] = (totals[canonicalPatternName] || 0) + Number(count || 0);
     });
   });
 
@@ -584,7 +620,6 @@ const patternDescriptions = {
   "Behavior Bounds pattern": "This pattern ensures that an LLM remains within its given role by the developer with its responsibilities, tasks and goals independently from what the developer prompted it with and also follows a stable policy. ",
   "Behavior Monitoring pattern": "This pattern makes sure that the agentic AI system does not act like a black box. Instead it tracks and also records important aspects of its performance decisions, resourse usage and error frequencies. After, these are analyzed and collected over time so the system can gain visibility of its esoteric issues before they become severe and spots opportunities for improvements.",
   "Centralized Pattern": "Involves a central agent or system managing the coordination of all agents. This approach provides strong oversight but can become a bottleneck, particularly in large-scale system.",
-  "Centralized pattern": "Involves a central agent or system managing the coordination of all agents. This approach provides strong oversight but can become a bottleneck, particularly in large-scale system.",
   "Chain of Draft pattern": "This pattern has LLMs used in agentic AI systems solve complex problems using brief, information dense notes instead of full step by step explanations. Like jotting key points, this approach cuts token use while maintaining reasoning accuracy.",
   "Chain of Thought pattern": "The Chain of Thought (CoT) mechanism involves the agent articulating its reasoning process step-by-step, mirroring human cognitive processes. This method helps in tracing how decisions are made and identifying where errors might have occurred.",
   "Checkpoint Recovery pattern": "This pattern allows a complex multi step process involving LLM agents can gracefully recover if a failure or interruption occurs.",
@@ -602,9 +637,7 @@ const patternDescriptions = {
   "Context Switching pattern": "Ensures that the agentic system can proceed from one context set to the other without confusion or data leakage. Here, a structured method of pausing and storing one context while resuming another is revealed. This switching of information lets the model handle multiple domains and sessions without undesirably merging them. ",
   "Context Window Manager pattern": "With this pattern LLM systems make the most out of their limited context window, instead of appending large amounts of text to each prompt or ignoring important previous information.",
   "Contextual Memory pattern": "Helps the LLM in the agentic system retain key details, past interactions, and user preferences. Without it, each query is treated in isolation. By remembering prior context, the model delivers more relevant, consistent, and natural responses.",
-  "Cross reflection pattern": "This type of reflection pattern uses different agents or Foundation Models to provide feedback and refinements on the plan.",
   "Cross Reflection pattern": "This type of reflection pattern uses different agents or Foundation Models to provide feedback and refinements on the plan.",
-  "Custom pattern": "In this custom setup, the developer decides which agents can interact with each other and how the control flows between them.",
   "Custom Pattern": "In this custom setup, the developer decides which agents can interact with each other and how the control flows between them.",
   "Data Chunking pattern": "This pattern takes care of the isue of processing large or comlex datasets. It chunks the data to more manageable and smaller segments, instead of having the model assessing massive amount of information.",
   "Data Transformation pattern": "Makes sure that when the LLM receives data in a specific - not needed format it has the ability to transform them in the needed form.",
@@ -622,7 +655,6 @@ const patternDescriptions = {
   "Error Recovery Chain pattern": "Here, a predefined sequence of simplified solutions would be suggested when an issue arises in the agentic AI workflow's processes. This pattern allows for incremental recovery from the error. ",
   "Expertise Adaptation pattern": "The pattern ensures that the LLM used in the agentic system adjusts the complexity and technical depth of its repsonses according to the user's background, skill level and likings.",
   "Explainable Compliance pattern": "Makes sure that the agentic system adheres to relevant laws, regulations, and organizational policies and also demonstrate and explain that adherence when questioned so that the processes can be tracked by human developers.",
-  "External pattern": "With external tools planning, the agent’s capabilities are extended beyond its inherent functions by allowing seamless interaction with external data sources and services (for example APIs). Moreover, external models utlize cutting edge algorithms and are employed for specific tasks that demand specialized computational expertise.",
   "External Pattern": "With external tools planning, the agent’s capabilities are extended beyond its inherent functions by allowing seamless interaction with external data sources and services (for example APIs). Moreover, external models utlize cutting edge algorithms and are employed for specific tasks that demand specialized computational expertise.",
   "External Tools pattern": "The agents are empowered with the capability  to call external tools for executing action.",
   "Federated pattern": "Federated coordination is managed in a decentralized manner, with each agent handling its own coordination while still communicating with others.",
@@ -630,7 +662,6 @@ const patternDescriptions = {
   "Fully Distributed pattern": "This pattern involves no central coordinator, as all agents coordinate directly with each other, often using peer-to-peer communication protocols.",
   "Goal-Based Transparency pattern": "Information between the agents in a system is shared only if it is relevant to achieving specific goals.",
   "Graceful Degradation Control pattern": "With this pattern applied, in case an agentic AI workflow cannot sustain its functionality level it does not simply fail alltogether. Instead it moves to gracefully degrade the completeness of the result so as to provide the user with some type of credible output.",
-  "Hierarchical Decomposition pattern": "This pattern makes sure that when the system has to deal with many different subtasks it organizes a hierarchical structure among the agents. ",
   "Hierarchical Decomposition Pattern": "This pattern makes sure that when the system has to deal with many different subtasks it organizes a hierarchical structure among the agents. ",
   "Hierarchical Memory Store pattern": "This pattern ensures that the long term knowledge is organised in a structured format (like a tree format or nested formats) and this can help the used LLM to navigate and retrieve the information more efficiently and organised. This also helps into finding conceptual relationships between the data.",
   "Human Feedback pattern": "In addition to obtaining  feedback from the environment, directly interacting with humans is also a very intuitive strategy to  enhance the agent planning capability. The human  feedback is a subjective signal. It can effectively  make the agent align with the human values and  preferences, and also help to alleviate the hallucination problem.",
@@ -712,7 +743,8 @@ const patternDescriptions = {
 };
 
 function getPatternDescription(patternName) {
-  return patternDescriptions[patternName] || "";
+  const canonicalPatternName = getCanonicalPatternName(patternName);
+  return patternDescriptions[canonicalPatternName] || patternDescriptions[patternName] || "";
 }
 
 // Add optional extra pattern details here using the same pattern-name keys.
@@ -728,7 +760,6 @@ const patternAliases = {
   "Behavior Bounds pattern": "",
   "Behavior Monitoring pattern": "",
   "Centralized Pattern": "",
-  "Centralized pattern": "",
   "Chain of Draft pattern": "",
   "Chain of Thought pattern": "Rationale Explanation Pattern",
   "Checkpoint Recovery pattern": "State Checkpoint Pattern",
@@ -746,9 +777,7 @@ const patternAliases = {
   "Context Switching pattern": "",
   "Context Window Manager pattern": "",
   "Contextual Memory pattern": "",
-  "Cross reflection pattern": "Peer Review Pattern, Reflect & Critique Pattern, Evaluator Optimiser Pattern",
   "Cross Reflection pattern": "Peer Review Pattern, Reflect & Critique Pattern, Evaluator Optimiser Pattern",
-  "Custom pattern": "",
   "Custom Pattern": "",
   "Data Chunking pattern": "",
   "Data Transformation pattern": "",
@@ -766,7 +795,6 @@ const patternAliases = {
   "Error Recovery Chain pattern": "",
   "Expertise Adaptation pattern": "",
   "Explainable Compliance pattern": "",
-  "External pattern": "External Planner Pattern",
   "External Pattern": "External Planner Pattern",
   "External Tools pattern": "",
   "Federated pattern": "Decentralised Pattern",
@@ -774,7 +802,6 @@ const patternAliases = {
   "Fully Distributed pattern": "Network Pattern",
   "Goal-Based Transparency pattern": "",
   "Graceful Degradation Control pattern": "Rollback Manager Pattern",
-  "Hierarchical Decomposition pattern": "",
   "Hierarchical Decomposition Pattern": "Recursive Decomposition, Hierarchical Task Manager Pattern, Hierarchical Agents",
   "Hierarchical Memory Store pattern": "",
   "Human Feedback pattern": "Human Reflection, Human in Loop",
@@ -867,7 +894,6 @@ const patternMotivations = {
   "Behavior Bounds pattern": "In case the LLM utilized agent does not have behavioral bounds, it might fall upon the trap off harmful user interactions and output anethical output that does not resonate with its purpose.",
   "Behavior Monitoring pattern": "When the agentic AI system does not have monitoring, issues and inefficiencies accumulate unnoticed until they cause major failures.",
   "Centralized Pattern": "When task management is fragmented across many agents, the system risks inconsistency, duplication, or conflict.",
-  "Centralized pattern": "When task management is fragmented across many agents, the system risks inconsistency, duplication, or conflict.",
   "Chain of Draft pattern": "The standard chain of thought reasoning produces verbose intermediate steps, wasting tokens, increasing costs, and slowing responses without improving accuracy.",
   "Chain of Thought pattern": "Linear answers make it hard to validate decisions or learn from mistakes. Complex tasks benefit from exposing intermediate assumptions and check so errors can be spotted early and reasoning can be assisted.",
   "Checkpoint Recovery pattern": "If the agentic system does not have checkpoints in case of system failure or interruption, the entire workflow restarts from zero making the whole process inefficient.",
@@ -885,9 +911,7 @@ const patternMotivations = {
   "Context Switching pattern": "Without smooth context switching, the LLM either gets stuck in one thread or drops prior context when changing tasks, leading to confusion, inefficiency, or repeated rederivations.",
   "Context Window Manager pattern": "The LLM utilized in the agentic system might either lose crucial information by truncating older parts of the conversation or waste tokens on irrelevant details.",
   "Contextual Memory pattern": "In a simple setup the LLM in the agentic system might treat the user query isolated, by forgeting past interactions which leads to repetitions and raises user frustration.",
-  "Cross reflection pattern": "When an agent has limited capability to conduct reflection with satisfying performance, the question is how can the output and the reasoning steps of this agent be evaluated. The inconsistencies of an agent's reasoning process may reduce response accuracy and the trustworthiness of the agent might be disturbed by the issue of transparency in plan generation. Lastly, an agent might not be able to perfom reflection due to its limited capability.",
   "Cross Reflection pattern": "When an agent has limited capability to conduct reflection with satisfying performance, the question is how can the output and the reasoning steps of this agent be evaluated. The inconsistencies of an agent's reasoning process may reduce response accuracy and the trustworthiness of the agent might be disturbed by the issue of transparency in plan generation. Lastly, an agent might not be able to perfom reflection due to its limited capability.",
-  "Custom pattern": "Sometimes developers want to define themselves the flow of the intermediate agent outputs.",
   "Custom Pattern": "Sometimes developers want to define themselves the flow of the intermediate agent outputs.",
   "Data Chunking pattern": "Having no chunking on massive amounts of data to smaller parts, leads to overconsumption of tokens leading to more costs because of token usage.",
   "Data Transformation pattern": "The LLMs need guidance on how to transform data in the needed format because they might attempt processing them, leading to confusion and errors.",
@@ -905,7 +929,6 @@ const patternMotivations = {
   "Error Recovery Chain pattern": "Without a recovery chain, error handling is a single one shot attempt, meaning that if it fails, the system just aborts or refuses.",
   "Expertise Adaptation pattern": "The need for the agentic system's output to adapt to user's skill level and not produce answers that the user might not understand and utilize for their goals.",
   "Explainable Compliance pattern": "Compliance is often enforced invisibly in the background. Without explainability, neither developers nor regulators can clearly verify how decisions were made or whether policies were correctly applied.",
-  "External pattern": "Agentic systems need for agents to go beyond their inherent limitations and interact with the world in a reliable, scalable, and specialized manner. While language models excel at reasoning and generating text, they lack access to real-time data, domain-specific expertise, and specialized computational capabilities.",
   "External Pattern": "Agentic systems need for agents to go beyond their inherent limitations and interact with the world in a reliable, scalable, and specialized manner. While language models excel at reasoning and generating text, they lack access to real-time data, domain-specific expertise, and specialized computational capabilities.",
   "External Tools pattern": "Even if LLMs have been demonstrated to be effective in accomplishing a large amount of tasks, they may not work well for the domains which need comprehensive expert knowledge or they might also encounter hallucination problems, which are hard to be resolved by themselves.",
   "Federated pattern": "Over-reliance on a single control point can create bottlenecks and a single point of failure.",
@@ -913,7 +936,6 @@ const patternMotivations = {
   "Fully Distributed pattern": "Need of automatization of agent coordination based on the agentic system's needs.",
   "Goal-Based Transparency pattern": "Not all types of shared information might be of importance to the agents for achieving the goal.",
   "Graceful Degradation Control pattern": "Many agentic AI workflows when dealing with a functionality error or issue, tool invocation for example, fail to produce an output.",
-  "Hierarchical Decomposition pattern": "Often single level supervisory structures can become inefficient and prone to errors. Complex problem spaces require decomposition into manageable parts, and without structured oversight the coordination breaks down.",
   "Hierarchical Decomposition Pattern": "Often single level supervisory structures can become inefficient and prone to errors. Complex problem spaces require decomposition into manageable parts, and without structured oversight the coordination breaks down.",
   "Hierarchical Memory Store pattern": "By having the data as a flat pile retrieval becomes difficult and inefficient.",
   "Human Feedback pattern": "The need to ensure that human preferences are fully and correctly captured and integrated into the reasoning and planning process.",
@@ -1004,7 +1026,6 @@ const patternSolutions = {
   "Behavior Bounds pattern": "Setting clear bounds or rule sets that underline what the LLM agent can and cannot do. This pattern can forbid certain outputs and require, for example, disclaimers in some answers.",
   "Behavior Monitoring pattern": "Introducing continuous monitoring tools that record metrics, for example error counts, resource consumption, and violation of policies. The system can analyze them and detect violations and deviations from the expected performance.",
   "Centralized Pattern": "A centralized control point that ensures uniform procedures, predictable outcomes, and easier oversight, especially in environments where consistency and compliance are important.",
-  "Centralized pattern": "A centralized control point that ensures uniform procedures, predictable outcomes, and easier oversight, especially in environments where consistency and compliance are important.",
   "Chain of Draft pattern": "This pattern has the LLM create concise draft notes for each step, keeping only essential insights. This reduces token use and latency while maintaining reasoning quality.",
   "Chain of Thought pattern": "Having the agent articulate its reasoning as ordered steps. Also using internals that structure a step by step decomposition and self-verification, logging intermediate states for validation and iterative improvement.",
   "Checkpoint Recovery pattern": "This pattern guides the agentic system to record its state and partial outputs at checkpoints. So in case of occurring errors, the system can revert to the most recent checkpoint.",
@@ -1022,9 +1043,7 @@ const patternSolutions = {
   "Context Switching pattern": "Utilization of this pattern allows for storing of contexts separately and allows switching between them. When it comes to switching, the current context is saved, the new one is activated, and later the system can return to the original without mixing details or starting over.",
   "Context Window Manager pattern": "Having the LLM system track and manage context usage dynamically, by evaluating which parts of the dialogue or data remain necessary or not, saving costs in token usage and achieving best results with relevant information.",
   "Contextual Memory pattern": "Preservation and utilization of essential details from previous conversations as needed.",
-  "Cross reflection pattern": "If an agent cannot generate accurate results or precise planning steps via reflecting its outputs, users can prompt it to query another agent which is specialised in reflection. The latter will review and evaluate the logged outputs and relevant reasoning steps of the first agent and provide suggestions.",
   "Cross Reflection pattern": "If an agent cannot generate accurate results or precise planning steps via reflecting its outputs, users can prompt it to query another agent which is specialised in reflection. The latter will review and evaluate the logged outputs and relevant reasoning steps of the first agent and provide suggestions.",
-  "Custom pattern": "The solution would be for the developers themselves to define and allow agent communication for handling intermediate outputs.",
   "Custom Pattern": "The solution would be for the developers themselves to define and allow agent communication for handling intermediate outputs.",
   "Data Chunking pattern": "By chunking large amounts of data into smaller segments the model processes each chunk independently and then merges their intermediate outcomes, allowing the model clarity.",
   "Data Transformation pattern": "Having this pattern allows the LLM to convert any data to any needed by the system form which will lead to more accurate reasoning.",
@@ -1042,7 +1061,6 @@ const patternSolutions = {
   "Error Recovery Chain pattern": "Using a sequence of fallback strategies. When an error occurs, the system attempts the first method and if it fails, it moves to the next and so on. Each step is simpler than the last. If all fail, the system provides a minimal safe response or a final refusal, ensuring graceful handling throughout.",
   "Expertise Adaptation pattern": "Having the LLM recall the users' level and expertise and adjust the complexity and technicality of its outputed answers.",
   "Explainable Compliance pattern": "Equipment of agentic AI systems with transparent compliance mechanisms. Logging of which rules and policies were checked, document the reasoning behind compliance decisions, for example content filtering and data governance, and preservation of evidence that supports adherence.",
-  "External pattern": "The agent can extend its core capabilities by integrating external tools and models through APIs, instead of relying solely on its internal reasoning. In that way, the agent is able to process more demanding tasks that require external tools.",
   "External Pattern": "The agent can extend its core capabilities by integrating external tools and models through APIs, instead of relying solely on its internal reasoning. In that way, the agent is able to process more demanding tasks that require external tools.",
   "External Tools pattern": "The foundation models might utilize external tools like API calls, databases and knowledge bases or external models that will alleviate hallucination issues or issues that have to do with limited domain knowledge.",
   "Federated pattern": "Distribution of task management responsibilities across multiple agents. Each agent executes and manages tasks semi-independently, coordinating with others as needed.",
@@ -1050,7 +1068,6 @@ const patternSolutions = {
   "Fully Distributed pattern": "Adopting a non-central coordination, where agents utilize peer to peer coordination directly deciding themselves the delegation of intermediate tasks and processes.",
   "Goal-Based Transparency pattern": "Adopting a strategy where information of the intermediate steps and processes will be shared only if they are important to the final goal, avoiding overloading the agents with unneeded information.",
   "Graceful Degradation Control pattern": "With graceful degradation, a fallback of levels of solution quality is defined. So when met with an error, the system steps down in the levels and returns a less good in quality output than the one that would have when everything would work out normally in the workflow. This allows that the system will always output something relevant to the initial call and would not fail completely.",
-  "Hierarchical Decomposition pattern": "Adopting a hierarchical agent architecture, where supervisors manage groups of agents and higher-level supervisors oversee those mid level supervisors. This layered control enables logical task decomposition and improved focus for specialized sub-agents.",
   "Hierarchical Decomposition Pattern": "Adopting a hierarchical agent architecture, where supervisors manage groups of agents and higher-level supervisors oversee those mid level supervisors. This layered control enables logical task decomposition and improved focus for specialized sub-agents.",
   "Hierarchical Memory Store pattern": "In this manner of having the data hierarchically organised the LLM can more easily fetch the data and realise the relationship between them to be able to utilize it in the prompt.",
   "Human Feedback pattern": "When a user prompts their goals and constraints, the agent first creates a plan consisting of a series of intermediate steps. This plan and its reasoning process logs can be presented to the user for review or sent to human experts to validate the agentic system's feasibility and usefulness.",
@@ -1142,7 +1159,6 @@ const patternResources = {
   "Behavior Bounds pattern": "(Lane, 2025)",
   "Behavior Monitoring pattern": "(Lane, 2025)",
   "Centralized Pattern": "(Zhou et al., 2024), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025), (Luo et al., 2025)",
-  "Centralized pattern": "(Zhou et al., 2024), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025), (Luo et al., 2025)",
   "Chain of Draft pattern": "(Lane, 2025)",
   "Chain of Thought pattern": "(Zhou et al., 2024), (Lane, 2025)",
   "Checkpoint Recovery pattern": "(Lane, 2025)",
@@ -1160,9 +1176,7 @@ const patternResources = {
   "Context Switching pattern": "(Lane, 2025)",
   "Context Window Manager pattern": "(Lane, 2025)",
   "Contextual Memory pattern": "(Lane, 2025)",
-  "Cross reflection pattern": "(Zhou et al., 2024), (Liu et al., 2024), (Lane, 2025), (MongoDB, 2025), (Lu et al., 2024), (Building Effective AI Agents, 2024)",
   "Cross Reflection pattern": "(Zhou et al., 2024), (Liu et al., 2024), (Lane, 2025), (MongoDB, 2025), (Lu et al., 2024), (Building Effective AI Agents, 2024)",
-  "Custom pattern": "(MongoDB, 2025), (Horne, 2025), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025)",
   "Custom Pattern": "(MongoDB, 2025), (Horne, 2025), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025)",
   "Data Chunking pattern": "(Lane, 2025)",
   "Data Transformation pattern": "(Lane, 2025)",
@@ -1180,7 +1194,6 @@ const patternResources = {
   "Error Recovery Chain pattern": "(Lane, 2025)",
   "Expertise Adaptation pattern": "(Lane, 2025)",
   "Explainable Compliance pattern": "(Lane, 2025)",
-  "External pattern": "(Wang et al., 2024), (Zhou et al., 2024)",
   "External Pattern": "(Wang et al., 2024), (Zhou et al., 2024)",
   "External Tools pattern": "(Wang et al., 2024), (Luo et al., 2025)",
   "Federated pattern": "(Zhou et al., 2024), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025), (Luo et al., 2025)",
@@ -1188,7 +1201,6 @@ const patternResources = {
   "Fully Distributed pattern": "(Zhou et al., 2024), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025)",
   "Goal-Based Transparency pattern": "(Zhou et al., 2024)",
   "Graceful Degradation Control pattern": "(Lane, 2025)",
-  "Hierarchical Decomposition pattern": "(Wray et al., 2025), (Lane, 2025), (Horne, 2025), (MongoDB, 2025), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025)",
   "Hierarchical Decomposition Pattern": "(Wray et al., 2025), (Lane, 2025), (Horne, 2025), (MongoDB, 2025), (Multi Agent Architecture In Multi-Agent Systems | Multi-Agent System Design Patterns | LangGraph | by Prince Krampah | Medium, 2025)",
   "Hierarchical Memory Store pattern": "(Lane, 2025)",
   "Human Feedback pattern": "(Wang et al., 2024), (Zhou et al., 2024), (Liu et al., 2024), (MongoDB, 2025), (Horne, 2025), (Lu et al., 2024), (Lane, 2025), (Luo et al., 2025)",
@@ -1280,7 +1292,6 @@ const patternResourceTypes = {
   "Behavior Bounds pattern": "White",
   "Behavior Monitoring pattern": "White",
   "Centralized Pattern": "White",
-  "Centralized pattern": "White",
   "Chain of Draft pattern": "White",
   "Chain of Thought pattern": "White",
   "Checkpoint Recovery pattern": "White",
@@ -1298,9 +1309,7 @@ const patternResourceTypes = {
   "Context Switching pattern": "White",
   "Context Window Manager pattern": "White",
   "Contextual Memory pattern": "White",
-  "Cross reflection pattern": "Grey and White",
   "Cross Reflection pattern": "Grey and White",
-  "Custom pattern": "Grey",
   "Custom Pattern": "White",
   "Data Chunking pattern": "White",
   "Data Transformation pattern": "White",
@@ -1318,7 +1327,6 @@ const patternResourceTypes = {
   "Error Recovery Chain pattern": "White",
   "Expertise Adaptation pattern": "White",
   "Explainable Compliance pattern": "White",
-  "External pattern": "White",
   "External Pattern": "White",
   "External Tools pattern": "White",
   "Federated pattern": "White",
@@ -1326,7 +1334,6 @@ const patternResourceTypes = {
   "Fully Distributed pattern": "White",
   "Goal-Based Transparency pattern": "White",
   "Graceful Degradation Control pattern": "White",
-  "Hierarchical Decomposition pattern": "White",
   "Hierarchical Decomposition Pattern": "White",
   "Hierarchical Memory Store pattern": "White",
   "Human Feedback pattern": "Grey and White",
@@ -1408,7 +1415,8 @@ const patternResourceTypes = {
 };
 
 function getPatternField(fieldMap, patternName) {
-  return fieldMap[patternName] || "";
+  const canonicalPatternName = getCanonicalPatternName(patternName);
+  return fieldMap[canonicalPatternName] || fieldMap[patternName] || "";
 }
 
 // This converts the pattern count object into a popup table.
@@ -1434,7 +1442,7 @@ function formatPatternOccurrences(patterns) {
 
   return patternRows
     ? `
-      <p style="margin-bottom: 0.5rem;"><strong>Scroll on the table of the patterns from this category for a per pattern analytical information.</strong></p>
+      <p style="margin-bottom: 0.5rem;"><strong>Scroll on the table of the patterns from this category for per pattern analytical information.</strong></p>
       <div class="table-container pattern-popup-table-container">
         <table class="table is-striped is-hoverable is-fullwidth is-size-7 pattern-popup-table">
           <thead>
@@ -2038,6 +2046,94 @@ async function loadPatternCounts() {
       if (modal) modal.classList.remove("is-active");
     }
 
+    function getPatternFilterState() {
+      const modeEl = document.getElementById("pattern-filter-mode");
+      const queryEl = document.getElementById("pattern-filter-query");
+
+      return {
+        mode: modeEl?.value || "category",
+        query: queryEl?.value || ""
+      };
+    }
+
+    function patternImageMatchesFilter(image, mode, query) {
+      if (!query) return true;
+
+      if (mode === "pattern") {
+        return Object.keys(image.patterns || {}).some((patternName) =>
+          patternName === query
+        );
+      }
+
+      return (image.title || image.file || "") === query;
+    }
+
+    function getPatternFilterOptions(mode) {
+      if (mode === "pattern") {
+        const patternNames = new Set();
+        patternImages.forEach((image) => {
+          Object.keys(image.patterns || {}).forEach((patternName) => {
+            patternNames.add(patternName);
+          });
+        });
+        return Array.from(patternNames).sort((a, b) => a.localeCompare(b));
+      }
+
+      return patternImages
+        .map((image) => image.title || image.file || "")
+        .filter(Boolean)
+        .sort((a, b) => a.localeCompare(b));
+    }
+
+    function updatePatternFilterOptions() {
+      const modeEl = document.getElementById("pattern-filter-mode");
+      const queryEl = document.getElementById("pattern-filter-query");
+      if (!modeEl || !queryEl) return;
+
+      const currentValue = queryEl.value;
+      const allLabel = modeEl.value === "pattern" ? "All patterns" : "All categories";
+
+      queryEl.innerHTML = "";
+
+      const allOption = document.createElement("option");
+      allOption.value = "";
+      allOption.textContent = allLabel;
+      queryEl.appendChild(allOption);
+
+      getPatternFilterOptions(modeEl.value).forEach((optionValue) => {
+        const option = document.createElement("option");
+        option.value = optionValue;
+        option.textContent = optionValue;
+        queryEl.appendChild(option);
+      });
+
+      queryEl.value = Array.from(queryEl.options).some((option) => option.value === currentValue)
+        ? currentValue
+        : "";
+    }
+
+    function setupPatternFilters() {
+      const modeEl = document.getElementById("pattern-filter-mode");
+      const queryEl = document.getElementById("pattern-filter-query");
+      const clearEl = document.getElementById("pattern-filter-clear");
+      if (!modeEl || !queryEl || !clearEl) return;
+
+      modeEl.addEventListener("change", () => {
+        updatePatternFilterOptions();
+        renderPatternGrid();
+      });
+
+      queryEl.addEventListener("change", renderPatternGrid);
+
+      clearEl.addEventListener("click", () => {
+        queryEl.value = "";
+        renderPatternGrid();
+        queryEl.focus();
+      });
+
+      updatePatternFilterOptions();
+    }
+
     function renderPatternGrid() {
   const grid = document.getElementById("pattern-grid");
   const empty = document.getElementById("pattern-empty");
@@ -2046,13 +2142,28 @@ async function loadPatternCounts() {
   grid.innerHTML = "";
 
   if (!patternImages.length) {
+    empty.textContent = "No pattern categories yet. Add PNGs under static/images/patterns/ and list them in patternImages.";
+    empty.style.display = "block";
+    return;
+  }
+
+  const { mode, query } = getPatternFilterState();
+  const visiblePatternImages = patternImages.filter((image) =>
+    patternImageMatchesFilter(image, mode, query)
+  );
+
+  if (!visiblePatternImages.length) {
+    empty.textContent =
+      mode === "pattern"
+        ? "No categories include a matching pattern."
+        : "No matching pattern categories.";
     empty.style.display = "block";
     return;
   }
 
   empty.style.display = "none";
 
-  for (const p of patternImages) {
+  for (const p of visiblePatternImages) {
     const col = document.createElement("div");
     col.className = "column is-4";
 
@@ -2185,6 +2296,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   await loadPatternCounts();
+  setupPatternFilters();
   renderRepoTable("agentic-tbody", agenticData);
   renderRepoTable("aiagents-tbody", agentData);
   renderPatternGrid();
