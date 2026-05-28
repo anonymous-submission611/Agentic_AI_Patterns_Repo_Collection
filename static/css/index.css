@@ -736,13 +736,41 @@ a:focus {
   overflow: auto;
 }
 
-.pattern-popup-table th:first-child,
-.pattern-popup-table td:first-child {
-  width: 32%;
+.pattern-popup-table {
+  min-width: 1250px;
+  table-layout: fixed;
 }
 
-.pattern-popup-table th:last-child,
-.pattern-popup-table td:last-child {
+.pattern-popup-table th,
+.pattern-popup-table td {
+  vertical-align: top;
+}
+
+.pattern-popup-table th:first-child,
+.pattern-popup-table td:first-child,
+.pattern-popup-table th:nth-child(4),
+.pattern-popup-table td:nth-child(4),
+.pattern-popup-table th:nth-child(6),
+.pattern-popup-table td:nth-child(6) {
+  width: 13rem;
+}
+
+.pattern-popup-table th:nth-child(3),
+.pattern-popup-table td:nth-child(3),
+.pattern-popup-table th:nth-child(7),
+.pattern-popup-table td:nth-child(7),
+.pattern-popup-table th:nth-child(8),
+.pattern-popup-table td:nth-child(8) {
+  width: 10rem;
+}
+
+.pattern-popup-table th:nth-child(5),
+.pattern-popup-table td:nth-child(5) {
+  width: 12rem;
+}
+
+.pattern-popup-table th:nth-child(2),
+.pattern-popup-table td:nth-child(2) {
   width: 7rem;
   white-space: nowrap;
 }
@@ -764,5 +792,3 @@ a:focus {
     box-shadow: none !important;
   }
 }
-
-
